@@ -39,12 +39,11 @@ export default function Contact() {
   return (
     <>
       {/* ===== HERO ===== */}
-      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 bg-ivory">
+      <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden pt-32">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <SectionHeading
             subtitle="Võta ühendust"
             title="Kontakt"
-            description="Küsimusi? Soovid broneerida aega? Kirjuta mulle ja vastan esimesel võimalusel."
           />
         </div>
       </section>

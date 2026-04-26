@@ -1,9 +1,42 @@
 import { motion } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Plus } from 'lucide-react'
+import { useState } from 'react'
 import SectionHeading from '../components/SectionHeading'
 import FadeInView from '../components/FadeInView'
 
+const servicesList = [
+  {
+    title: 'Fantaasiameik',
+    price: '60€',
+    duration: '90 min',
+    description: 'Fantaasiameik on loodud nendele, kes tahavad midagi erilist ja ekstravagantsset. Täis detaile ja loovust!'
+  },
+  {
+    title: 'Pidulik jumestus',
+    price: '55€',
+    duration: '60 min',
+    description: 'Elegant ja särav meik gaaladeks, pidudeks ja spetsiaalseteks õhtuteks. Pikakestev ja kaunis.'
+  },
+  {
+    title: 'Fotomeik',
+    price: '50€',
+    duration: '60 min',
+    description: 'Professionaalne jumestus, mis näeb kaamera ees laitmatult välja. Ideaalne fotosessiooni ja pildistatiste jaoks.'
+  },
+  {
+    title: 'Jumestus mehele',
+    price: '20€',
+    duration: '15 min',
+    description: 'Kerge ja loomulik jumestus mehele. Täiendab ilusat nägu ilma ülemääraselt välja paistmata.'
+  }
+]
+
 export default function PriceList() {
+  const [expandedIndex, setExpandedIndex] = useState(null)
+
+  const toggleService = (index) => {
+    setExpandedIndex(expandedIndex === index ? null : index)
+  }
   return (
     <>
       {/* ===== HERO ===== */}
@@ -11,12 +44,12 @@ export default function PriceList() {
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?q=80&w=2071&auto=format&fit=crop"
+            src="/taust_2.png"
             alt="Professionaalne jumestus"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-dark/70 via-dark/40 to-dark/20" />
-          <div className="absolute inset-0 bg-gradient-to-t from-dark/60 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-dark/50 via-dark/35 to-dark/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-dark/40 via-transparent to-transparent" />
         </div>
 
         {/* Content */}
@@ -34,60 +67,68 @@ export default function PriceList() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-cream/70 text-base md:text-lg font-light max-w-xl mx-auto leading-relaxed"
+            className="text-cream text-base md:text-lg font-light max-w-xl mx-auto leading-relaxed"
+            style={{ textShadow: '0 2px 8px rgba(26, 26, 26, 0.3)' }}
           >
             Professionaalne jumestus sobiva hinnaga – iga eelarve jaoks.
           </motion.p>
         </div>
       </section>
 
-      {/* ===== PRICING INFO ===== */}
+      {/* ===== SERVICES ===== */}
       <section className="py-24 lg:py-32">
         <div className="max-w-4xl mx-auto px-6 lg:px-12">
-          <FadeInView>
-            <div className="text-center mb-16">
-              <p className="text-warm-gray text-lg font-light leading-relaxed mb-8">
-                Minu hinnad on läbipaistvad ja konkurentsivõimelised. 
-                Teenused ja täpsed hinnad leiad allolevalt lingilt, kus saad ka broneerida oma jumestusaega.
-              </p>
-              
-              <a
-                href="https://anolla.com/book/makeupbykristikliimann"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 px-12 py-5 bg-dark text-cream text-xs tracking-[0.2em] uppercase font-medium hover:bg-rose transition-all duration-500"
-              >
-                Vaata teenuseid ja hinna
-                <ArrowRight size={16} />
-              </a>
-            </div>
-          </FadeInView>
-
           <FadeInView delay={0.2}>
             <div className="bg-ivory p-10 lg:p-14">
-              <h2 className="font-serif text-2xl md:text-3xl font-medium text-dark mb-8">
-                Miks valida mind?
+              <h2 className="font-serif text-2xl md:text-3xl font-medium text-dark mb-10">
+                Hinnakiri
               </h2>
               
-              <div className="space-y-6 text-warm-gray font-light leading-relaxed">
-                <p>
-                  🎨 <strong>Professionaalne lähenemine</strong> – Iga klient on unikaalne ja mul on kogemus erinevate näotüüpide ja soovide käsitlemisel.
-                </p>
-                <p>
-                  ✨ <strong>Kõrgekvaliteedilised tooted</strong> – Kasutan ainult premium-klassi meigitooteid (MAC, Charlotte Tilbury, NARS, Dior).
-                </p>
-                <p>
-                  ⏰ <strong>Pikaajaline vastupidavus</strong> – Minu meik püsib terve päeva – tantsimisest nutmiseni.
-                </p>
-                <p>
-                  😌 <strong>Rahuliku õhkkonna loomine</strong> – Meigitegemine on nauditav kogemus, mitte stressirohke protsess.
-                </p>
-                <p>
-                  🎯 <strong>Punktuaalsus ja usaldusväärsus</strong> – Olen alati õigel ajal kohal ja valmis looma sinu unistuste meiki.
-                </p>
-                <p>
-                  📚 <strong>Pidev professionaalne areng</strong> – Osalen regulaarselt rahvusvahelistel koolitustel ja workshopidel.
-                </p>
+              <div className="space-y-0">
+                {servicesList.map((service, index) => (
+                  <div key={index} className="border-b border-warm-gray/30">
+                    <button
+                      onClick={() => toggleService(index)}
+                      className="w-full flex items-center justify-between py-6 px-0 hover:bg-transparent transition-colors duration-200 group"
+                    >
+                      <div className="flex-1 text-left">
+                        <div className="flex items-baseline justify-between gap-4">
+                          <h3 className="font-light text-lg md:text-xl text-dark">{service.title}</h3>
+                          <span className="font-light text-lg md:text-xl text-dark">{service.price}</span>
+                        </div>
+                      </div>
+                      <motion.div
+                        animate={{ rotate: expandedIndex === index ? 45 : 0 }}
+                        transition={{ duration: 0.3, ease: 'easeInOut' }}
+                        className="ml-4"
+                      >
+                        <Plus 
+                          size={24} 
+                          className="text-dark group-hover:text-rose transition-colors duration-200"
+                        />
+                      </motion.div>
+                    </button>
+                    
+                    {expandedIndex === index && (
+                      <motion.div
+                        initial={{ opacity: 0, maxHeight: 0 }}
+                        animate={{ opacity: 1, maxHeight: 500 }}
+                        exit={{ opacity: 0, maxHeight: 0 }}
+                        transition={{ duration: 0.35, ease: 'easeInOut' }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-0 py-4">
+                          <p className="text-warm-gray font-light leading-relaxed text-base">
+                            {service.description}
+                          </p>
+                          <p className="text-sm text-warm-gray font-light mt-3">
+                            {service.duration}
+                          </p>
+                        </div>
+                      </motion.div>
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
           </FadeInView>
@@ -95,35 +136,21 @@ export default function PriceList() {
       </section>
 
       {/* ===== CTA ===== */}
-      <section className="relative py-28 lg:py-36 overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src="https://images.unsplash.com/photo-1457972729786-0411a3b2b626?q=80&w=2070&auto=format&fit=crop"
-            alt="Meigitarvikud"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-dark/70" />
-        </div>
-
-        <div className="relative z-10 max-w-3xl mx-auto px-6 text-center">
+      <section className="-mt-8 lg:-mt-10 pb-24 lg:pb-32">
+        <div className="max-w-4xl mx-auto px-6 lg:px-12 text-center">
           <FadeInView>
-            <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl text-cream font-medium mb-6 leading-tight">
-              Oled valmis?
-              <br />
-              <span className="italic text-blush">Broneeri oma jumestusaeg</span>
-            </h2>
-            <p className="text-cream/60 font-light mb-10 max-w-lg mx-auto leading-relaxed">
-              Vali sobiv teenus ja aeg allolevalt lingilt.
-            </p>
-            <a
+            <motion.a
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
               href="https://kkbeauty.setmore.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-12 py-5 bg-cream text-dark text-xs tracking-[0.2em] uppercase font-medium hover:bg-rose hover:text-cream transition-all duration-500"
+              className="inline-flex items-center gap-3 px-12 py-5 bg-rose text-cream text-xs tracking-[0.2em] uppercase font-medium hover:bg-dark transition-all duration-500"
             >
               Broneeri aeg
               <ArrowRight size={16} />
-            </a>
+            </motion.a>
           </FadeInView>
         </div>
       </section>

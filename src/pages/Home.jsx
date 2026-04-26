@@ -6,24 +6,24 @@ import FadeInView from '../components/FadeInView'
 
 const services = [
   {
-    icon: <Heart size={28} />,
-    title: 'Pulmameik',
-    description: 'Kauakestev ja kaunis jumestus sinu elu kõige olulisemaks päevaks. Sisaldab proovimeiki.',
+    icon: <Sparkles size={28} />,
+    title: 'Fantaasiameik',
+    description: '90 min · 60 €',
   },
   {
     icon: <Star size={28} />,
-    title: 'Õhtujumestus',
-    description: 'Särav ja elegantne meik gaaladeks, sünnipäevadeks ja erilisteks õhtuteks.',
+    title: 'Glam',
+    description: '60 min · 55 €',
   },
   {
     icon: <Camera size={28} />,
     title: 'Fotomeik',
-    description: 'Professionaalne jumestus, mis näeb kaamera ees laitmatult välja.',
+    description: '60 min · 50 €',
   },
   {
-    icon: <Sparkles size={28} />,
-    title: 'Loomulik meik',
-    description: 'Kerge ja värske "no-makeup" look, mis rõhutab sinu loomulikku ilu.',
+    icon: <Heart size={28} />,
+    title: 'Jumestus mehele',
+    description: '15 min · 20 €',
   },
 ]
 
@@ -131,20 +131,6 @@ export default function Home() {
             </Link>
           </motion.div>
         </div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2, duration: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
-            className="w-[1px] h-12 bg-gradient-to-b from-transparent to-cream/50"
-          />
-        </motion.div>
       </section>
 
       {/* ===== ABOUT ===== */}
@@ -154,7 +140,7 @@ export default function Home() {
             <FadeInView direction="left">
               <div className="relative">
                 <img
-                  src="/pilt.jpg"
+                  src="/Pilt_Kristi.png"
                   alt="Kristi Kliimann profiilipilt"
                   className="w-full aspect-[3/4] object-cover"
                 />
@@ -173,20 +159,12 @@ export default function Home() {
 
                 <div className="space-y-5 text-warm-gray font-light leading-relaxed">
                   <p>
-                    Minu teekond jumestuse maailmas algas üle 8 aasta tagasi, kui avastasin,
-                    et meik ei ole lihtsalt toodete näole kandmine – see on kunst, mis aitab
-                    inimestel tunda end enesekindlana ja ilusana.
+                    Sinu ilu, minu kirg – juba 10 aastat.
                   </p>
                   <p>
-                    Olen lõpetanud rahvusvaheliselt tunnustatud meigikoolid ja täiendanud ennast
-                    pidevalt parimate meistrite juures Londonis, Milanos ja Pariisis. Minu portfoolios
-                    on üle 200 pulma-jumestuse, arvukad moefotosessioonid ning koostöö tuntud
-                    Eesti brändidega.
-                  </p>
+                    Usun südamest, et iga naine on ilus. Minu töö ei ole seda ilu luua, vaid see oskuslikult esile tuua. Kasutades vaid tipptasemel tooteid ja oma kümneaastast kogemustepagasit, loon Sulle meigi, mis ei pane Sind lihtsalt särama, vaid annab ka vankumatu enesekindluse.                  </p>
                   <p>
-                    Minu filosoofia on lihtne: iga naine on ilus. Minu ülesanne on rõhutada
-                    seda loomulikku ilu ja aidata sul tunda end oma parimal päeval just nii,
-                    nagu sa väärid – laitmatult.
+                    Olgu tegu pulma, fotosessiooni või olulise peoga – minu eesmärk on, et peeglisse vaadates tunneksid Sa end ikka iseendana, kuid oma parimas ja lummavaimas versioonis. Sa väärid end tundma laitmatult.
                   </p>
                 </div>
               </div>
@@ -200,8 +178,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <SectionHeading
             subtitle="Arvustused"
-            title="Kliendid räägivad"
-            description="Rahulolu on minu suurim tunnustus."
+            title="Klientide tagasiside"
             light
           />
 
@@ -214,7 +191,7 @@ export default function Home() {
                       <Star key={idx} size={14} className="fill-rose text-rose" />
                     ))}
                   </div>
-                  <p className="text-cream/70 text-sm font-light leading-relaxed italic mb-8 flex-grow">
+                  <p className="text-cream/70 text-sm font-light leading-relaxed italic mb-4 flex-grow">
                     "{t.text}"
                   </p>
                   <div>
@@ -231,24 +208,28 @@ export default function Home() {
       <section className="py-24 lg:py-32 bg-ivory">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <SectionHeading
-            subtitle="Mida pakun"
             title="Teenused"
-            description="Professionaalne jumestus igaks olukorraks – pulmadest fotosessioonideni."
+            description="Professionaalne jumestus igaks olukorraks."
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {services.map((service, i) => (
               <FadeInView key={service.title} delay={i * 0.1}>
-                <div className="group bg-cream p-8 lg:p-10 text-center hover:shadow-lg transition-all duration-500">
-                  <div className="text-rose mb-6 flex justify-center group-hover:scale-110 transition-transform duration-300">
+                <div className="group bg-cream p-8 lg:p-12 text-center hover:shadow-xl transition-all duration-500 h-full flex flex-col items-center justify-center">
+                  <div className="text-rose mb-6 flex justify-center group-hover:scale-125 transition-transform duration-300">
                     {service.icon}
                   </div>
-                  <h3 className="font-serif text-xl font-medium text-dark mb-4">
+                  <h3 className="font-serif text-xl lg:text-2xl font-medium text-dark mb-6">
                     {service.title}
                   </h3>
-                  <p className="text-sm text-warm-gray font-light leading-relaxed">
-                    {service.description}
-                  </p>
+                  <div className="flex flex-col items-center">
+                    <p className="text-3xl lg:text-4xl font-semibold text-rose mb-2">
+                      {service.description.split(' · ')[1]}
+                    </p>
+                    <p className="text-sm text-warm-gray font-light">
+                      {service.description.split(' · ')[0]}
+                    </p>
+                  </div>
                 </div>
               </FadeInView>
             ))}

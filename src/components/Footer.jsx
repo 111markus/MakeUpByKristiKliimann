@@ -10,15 +10,18 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
           {/* Brand */}
           <div>
-            <img
-              src="/kristi_logo_refined.png"
-              alt="Kristi Kliimann"
-              className="h-16 w-auto mb-4"
-            />
-            <p className="text-sm leading-relaxed text-cream/60 max-w-xs">
-              Professionaalne jumestus erilisteks hetkedeks. Iga nägu on kunstiteos,
-              mis ootab avastamist.
-            </p>
+            <div className="flex items-center gap-3 shrink-0">
+              <img
+                src="/kristi_logo_refined.png"
+                alt="Kristi Kliimann"
+                className="h-16 w-auto"
+              />
+              <img
+                src="/kristi_valge.png"
+                alt="K Logo"
+                className="h-12 w-auto"
+              />
+            </div>
           </div>
 
           {/* Quick Links */}
@@ -27,7 +30,7 @@ export default function Footer() {
             <div className="space-y-3">
               {[
                 { to: '/', label: 'Avaleht' },
-                { to: '/minust', label: 'Minust' },
+                { to: '/hinnakiri', label: 'Hinnakiri' },
                 { to: '/galerii', label: 'Galerii' },
                 { to: '/kontakt', label: 'Kontakt' },
               ].map((link) => (
@@ -55,27 +58,27 @@ export default function Footer() {
             <h4 className="font-serif text-lg text-cream mb-6">Kontakt</h4>
             <div className="space-y-4">
               <a
-                href="tel:+37255512345"
+                href="tel:+37256754911"
                 className="flex items-center gap-3 text-sm text-cream/60 hover:text-rose transition-colors duration-300"
               >
                 <Phone size={16} />
-                +372 5551 2345
+                +372 5675 4911
               </a>
               <a
-                href="mailto:kristi@jumestus.ee"
+                href="mailto:kristikliimann.kk@gmail.com"
                 className="flex items-center gap-3 text-sm text-cream/60 hover:text-rose transition-colors duration-300"
               >
                 <Mail size={16} />
-                kristi@jumestus.ee
+                kristikliimann.kk@gmail.com
               </a>
               <a
-                href="https://instagram.com/kristikliimann.makeup"
+                href="https://www.instagram.com/makeupbykristikliimann/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 text-sm text-cream/60 hover:text-rose transition-colors duration-300"
               >
                 <Instagram size={16} />
-                @kristikliimann.makeup
+                @makeupbykristikliimann
               </a>
               <p className="flex items-center gap-3 text-sm text-cream/60">
                 <MapPin size={16} />

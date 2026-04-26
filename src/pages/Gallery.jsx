@@ -101,8 +101,7 @@ export default function Gallery() {
       {/* ===== HERO ===== */}
       <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 bg-ivory">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <SectionHeading
-            subtitle="Portfoolio"
+          <SectionHeading 
             title="Galerii"
             description="Valik minu töödest – iga meik on loodud armastuse ja tähelepanelikkusega."
           />
