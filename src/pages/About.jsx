@@ -47,17 +47,6 @@ const certifications = [
 export default function About() {
   return (
     <>
-      {/* ===== HERO ===== */}
-      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 bg-ivory">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <SectionHeading
-            subtitle="Minust"
-            title="Tere, mina olen Elena"
-            description="Professionaalne jumestaja, kes usub, et iga naine väärib tunda end ilusana."
-          />
-        </div>
-      </section>
-
       {/* ===== PROFILE ===== */}
       <section className="py-24 lg:py-32">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
@@ -66,7 +55,7 @@ export default function About() {
               <div className="relative">
                 <img
                   src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?q=80&w=1974&auto=format&fit=crop"
-                  alt="Elena Kask profiilipilt"
+                  alt="Kristi Kliimann profiilipilt"
                   className="w-full aspect-[3/4] object-cover"
                 />
                 <div className="absolute -bottom-4 -left-4 w-full h-full border border-rose/20 -z-10" />

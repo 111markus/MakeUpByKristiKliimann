@@ -29,21 +29,33 @@ const services = [
 
 const testimonials = [
   {
-    name: 'Katrin M.',
-    role: 'Pruut',
-    text: 'Elena tegi mu pulma-meigi ja see oli absoluutselt täiuslik! Meik püsis terve päeva ja ma tundsin end nagu printsess.',
+    name: 'Piret',
+    text: 'Väga rahule jäin! Kristi teeb oma tööd kirega ja see peegeldub tulemuses. Super ilus meik, mis püsib terve päeva!',
     rating: 5,
   },
   {
-    name: 'Laura S.',
-    role: 'Fotosessioon',
-    text: 'Olen kasutanud Elena teenuseid mitmel korral. Tema professionaalsus ja oskus on erakordne. Soovitan soojalt!',
+    name: 'Kadi-Ly',
+    text: 'Suur-suur aitäh Sulle, Kristi! Jäin meigiga väga rahule – see oli täpselt selline, nagu soovisin, ja pidas terve pika päeva ja öö vastu. Soovitan soojalt!',
     rating: 5,
   },
   {
-    name: 'Marii T.',
-    role: 'Gala õhtu',
-    text: 'Parim jumestaja, kellega olen kokku puutunud! Elena kuulab alati mu soove ja tulemus ületab ootusi.',
+    name: 'Merlyn',
+    text: 'Kristi on imeline meigikunstnik! Ta oskab nii hästi rõhutada inimese loomulikku ilu. Atmosfäär oli väga meeldiv ja tulemus lihtsalt super.',
+    rating: 5,
+  },
+  {
+    name: 'Triin',
+    text: 'Väga meeldiv kogemus! Kristi on oma töös väga professionaalne ja samas nii soe inimene. Meik püsis veatuna ürituse lõpuni.',
+    rating: 5,
+  },
+  {
+    name: 'Anete',
+    text: 'Minu kindel lemmik! Kristi juures tunned end alati hoituna ja tulemus on alati 5+. Aitäh!',
+    rating: 5,
+  },
+  {
+    name: 'Grete-Lilijane',
+    text: 'Väga tubli ja andekas meikar! Soovitan kõigile, kes soovivad tõeliselt ilusat ja kvaliteetset jumestust.',
     rating: 5,
   },
 ]
@@ -72,7 +84,7 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="text-cream/70 text-xs tracking-[0.4em] uppercase mb-6"
           >
-            Elena Kask · Professionaalne Jumestaja
+            Kristi Kliimann · Professionaalne Jumestaja
           </motion.p>
 
           <motion.h1
@@ -103,7 +115,7 @@ export default function Home() {
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <a
-              href="https://setmore.com/yourname"
+              href="https://kkbeauty.setmore.com"
               target="_blank"
               rel="noopener noreferrer"
               className="group px-10 py-4 bg-cream text-dark text-xs tracking-[0.2em] uppercase font-medium hover:bg-rose hover:text-cream transition-all duration-500 flex items-center gap-3"
@@ -135,47 +147,82 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* ===== INTRO ===== */}
-      <section className="py-24 lg:py-32">
+      {/* ===== ABOUT ===== */}
+      <section className="py-24 lg:py-32 bg-ivory">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
             <FadeInView direction="left">
               <div className="relative">
                 <img
-                  src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=2087&auto=format&fit=crop"
-                  alt="Elena Kask jumestaja"
+                  src="/pilt.jpg"
+                  alt="Kristi Kliimann profiilipilt"
                   className="w-full aspect-[3/4] object-cover"
                 />
-                <div className="absolute -bottom-6 -right-6 w-48 h-48 border border-rose/30 -z-10" />
+                <div className="absolute -bottom-4 -left-4 w-full h-full border border-rose/20 -z-10" />
               </div>
             </FadeInView>
 
             <FadeInView direction="right" delay={0.2}>
-              <div>
-                <p className="text-xs tracking-[0.3em] uppercase text-soft-gray mb-4">Tere tulemast</p>
-                <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-medium text-dark mb-6 leading-tight">
-                  Ilu on minu
+              <div className="lg:pt-8">
+                <p className="text-xs tracking-[0.3em] uppercase text-soft-gray mb-4">Minust</p>
+                <h2 className="font-serif text-3xl md:text-4xl font-medium text-dark mb-8 leading-tight">
+                  Ilu on minu kirg,
                   <br />
-                  <span className="italic text-rose">kirg ja kutsumus</span>
+                  <span className="italic text-rose">jumestus on minu kunst</span>
                 </h2>
-                <p className="text-warm-gray font-light leading-relaxed mb-6">
-                  Olen Elena – professionaalne jumestaja rohkem kui 8-aastase kogemusega.
-                  Minu missioon on aidata igal naisel tunda end oma parimal päeval
-                  ilusana ja enesekindlana.
-                </p>
-                <p className="text-warm-gray font-light leading-relaxed mb-8">
-                  Kasutan ainult kõrgekvaliteedilisi tooteid ja pidevalt uuendatavaid
-                  tehnikaid, et pakkuda parimat tulemust.
-                </p>
-                <Link
-                  to="/minust"
-                  className="inline-flex items-center gap-2 text-sm tracking-widest uppercase text-dark font-medium border-b border-dark pb-1 hover:text-rose hover:border-rose transition-colors duration-300"
-                >
-                  Loe rohkem
-                  <ArrowRight size={14} />
-                </Link>
+
+                <div className="space-y-5 text-warm-gray font-light leading-relaxed">
+                  <p>
+                    Minu teekond jumestuse maailmas algas üle 8 aasta tagasi, kui avastasin,
+                    et meik ei ole lihtsalt toodete näole kandmine – see on kunst, mis aitab
+                    inimestel tunda end enesekindlana ja ilusana.
+                  </p>
+                  <p>
+                    Olen lõpetanud rahvusvaheliselt tunnustatud meigikoolid ja täiendanud ennast
+                    pidevalt parimate meistrite juures Londonis, Milanos ja Pariisis. Minu portfoolios
+                    on üle 200 pulma-jumestuse, arvukad moefotosessioonid ning koostöö tuntud
+                    Eesti brändidega.
+                  </p>
+                  <p>
+                    Minu filosoofia on lihtne: iga naine on ilus. Minu ülesanne on rõhutada
+                    seda loomulikku ilu ja aidata sul tunda end oma parimal päeval just nii,
+                    nagu sa väärid – laitmatult.
+                  </p>
+                </div>
               </div>
             </FadeInView>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== REVIEWS ===== */}
+      <section className="py-24 lg:py-32 bg-dark">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          <SectionHeading
+            subtitle="Arvustused"
+            title="Kliendid räägivad"
+            description="Rahulolu on minu suurim tunnustus."
+            light
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {testimonials.map((t, i) => (
+              <FadeInView key={t.name} delay={i * 0.1}>
+                <div className="border border-cream/10 p-8 lg:p-10 h-full flex flex-col">
+                  <div className="flex gap-1 mb-6">
+                    {[...Array(t.rating)].map((_, idx) => (
+                      <Star key={idx} size={14} className="fill-rose text-rose" />
+                    ))}
+                  </div>
+                  <p className="text-cream/70 text-sm font-light leading-relaxed italic mb-8 flex-grow">
+                    "{t.text}"
+                  </p>
+                  <div>
+                    <p className="text-cream font-serif text-base">{t.name}</p>
+                  </div>
+                </div>
+              </FadeInView>
+            ))}
           </div>
         </div>
       </section>
@@ -210,7 +257,7 @@ export default function Home() {
           <FadeInView delay={0.4}>
             <div className="text-center mt-14">
               <a
-                href="https://setmore.com/yourname"
+                href="https://kkbeauty.setmore.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 px-10 py-4 bg-dark text-cream text-xs tracking-[0.2em] uppercase font-medium hover:bg-charcoal transition-all duration-500"
@@ -219,77 +266,6 @@ export default function Home() {
                 <ArrowRight size={16} />
               </a>
             </div>
-          </FadeInView>
-        </div>
-      </section>
-
-      {/* ===== TESTIMONIALS ===== */}
-      <section className="py-24 lg:py-32 bg-dark">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <SectionHeading
-            subtitle="Tagasiside"
-            title="Mida kliendid ütlevad"
-            description="Rahulolu on minu suurim tunnustus."
-            light
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((t, i) => (
-              <FadeInView key={t.name} delay={i * 0.15}>
-                <div className="border border-cream/10 p-8 lg:p-10">
-                  <div className="flex gap-1 mb-6">
-                    {[...Array(t.rating)].map((_, idx) => (
-                      <Star key={idx} size={14} className="fill-rose text-rose" />
-                    ))}
-                  </div>
-                  <p className="text-cream/70 text-sm font-light leading-relaxed italic mb-8">
-                    "{t.text}"
-                  </p>
-                  <div>
-                    <p className="text-cream font-serif text-base">{t.name}</p>
-                    <p className="text-cream/40 text-xs mt-1">{t.role}</p>
-                  </div>
-                </div>
-              </FadeInView>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== CTA ===== */}
-      <section className="relative py-28 lg:py-36 overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src="https://images.unsplash.com/photo-1457972729786-0411a3b2b626?q=80&w=2070&auto=format&fit=crop"
-            alt="Meigitarvikud"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-dark/70" />
-        </div>
-
-        <div className="relative z-10 max-w-3xl mx-auto px-6 text-center">
-          <FadeInView>
-            <p className="text-cream/50 text-xs tracking-[0.3em] uppercase mb-4">
-              Oled valmis?
-            </p>
-            <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl text-cream font-medium mb-6 leading-tight">
-              Broneeri oma
-              <br />
-              <span className="italic text-blush">jumestusaeg</span>
-            </h2>
-            <p className="text-cream/60 font-light mb-10 max-w-lg mx-auto leading-relaxed">
-              Iga eriline hetk väärib professionaalset meiki. Broneeri oma aeg
-              ja lasen sinu ilul särada.
-            </p>
-            <a
-              href="https://setmore.com/yourname"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-12 py-5 bg-cream text-dark text-xs tracking-[0.2em] uppercase font-medium hover:bg-rose hover:text-cream transition-all duration-500"
-            >
-              Broneeri aeg
-              <ArrowRight size={16} />
-            </a>
           </FadeInView>
         </div>
       </section>

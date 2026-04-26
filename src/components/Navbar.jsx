@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 const navLinks = [
   { path: '/', label: 'Avaleht' },
-  { path: '/minust', label: 'Minust' },
+  { path: '/hinnakiri', label: 'Hinnakiri' },
   { path: '/galerii', label: 'Galerii' },
   { path: '/kontakt', label: 'Kontakt' },
 ]
@@ -33,55 +33,71 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         showSolidBg
-          ? 'bg-cream/95 backdrop-blur-md shadow-sm'
-          : 'bg-transparent'
+          ? 'bg-cream/90 backdrop-blur-lg shadow-sm'
+          : 'bg-transparent backdrop-blur-none'
       }`}
     >
       <nav className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="flex items-center justify-between h-20 lg:h-24">
-          {/* Logo */}
+          {/* Left Logo */}
           <Link
             to="/"
-            className={`font-serif text-2xl lg:text-3xl font-semibold tracking-wide hover:text-rose transition-colors duration-300 ${
-              showSolidBg ? 'text-dark' : 'text-cream'
-            }`}
+            className="hover:opacity-80 transition-opacity duration-300 flex items-center gap-3 shrink-0"
           >
-            Elena<span className="text-rose">.</span>
+            <img
+              src="/kristi_logo_refined.png"
+              alt="Kristi Kliimann"
+              className="h-12 lg:h-16 w-auto shrink-0"
+            />
+            <img
+              src="/kristi.png"
+              alt="K Logo"
+              className={`h-10 w-auto shrink-0 transition-all duration-500 ${
+                showSolidBg ? 'brightness-0' : 'brightness-100'
+              }`}
+            />
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-10">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`text-sm tracking-widest uppercase font-light transition-colors duration-300 hover:text-rose ${
-                  location.pathname === link.path
-                    ? 'text-rose'
-                    : showSolidBg ? 'text-charcoal' : 'text-cream/80'
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
-            <a
-              href="https://setmore.com/yourname"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ml-4 px-7 py-3 bg-dark text-cream text-xs tracking-widest uppercase font-medium hover:bg-charcoal transition-all duration-300"
-            >
-              Broneeri aeg
-            </a>
-          </div>
+          {/* Right side - Navigation and Logo */}
+          <div className="flex items-center justify-end gap-8 flex-1">
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-8">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className={`text-sm tracking-widest uppercase font-light transition-colors duration-300 hover:text-rose ${
+                    location.pathname === link.path
+                      ? 'text-rose'
+                      : showSolidBg ? 'text-charcoal' : 'text-cream/80'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className={`md:hidden p-2 ${showSolidBg ? 'text-dark' : 'text-cream'}`}
-            aria-label="Toggle menu"
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+            {/* Logo and Button group */}
+            <div className="hidden md:flex items-center gap-4">
+              <a
+                href="https://kkbeauty.setmore.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-7 py-3 border-2 border-rose text-rose text-xs tracking-widest uppercase font-medium rounded-sm hover:bg-rose hover:text-cream transition-all duration-300"
+              >
+                Broneeri aeg
+              </a>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className={`md:hidden p-2 ${showSolidBg ? 'text-dark' : 'text-cream'}`}
+              aria-label="Toggle menu"
+            >
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -110,10 +126,10 @@ export default function Navbar() {
                 </Link>
               ))}
               <a
-                href="https://setmore.com/yourname"
+                href="https://kkbeauty.setmore.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block mt-4 px-8 py-3 bg-dark text-cream text-xs tracking-widest uppercase font-medium"
+                className="inline-block mt-4 px-8 py-3 border-2 border-rose text-rose text-xs tracking-widest uppercase font-medium rounded-sm hover:bg-rose hover:text-cream transition-all duration-300"
               >
                 Broneeri aeg
               </a>
