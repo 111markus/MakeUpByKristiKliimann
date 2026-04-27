@@ -98,13 +98,25 @@ export default function Gallery() {
 
   return (
     <>
-      {/* ===== HERO ===== */}
-      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 bg-ivory">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <SectionHeading 
-            title="Galerii"
-            description="Valik minu töödest – iga meik on loodud armastuse ja tähelepanelikkusega."
+      {/* ===== HERO (Ühtlustatud PriceList stiiliga, ilma taustapildita) ===== */}
+      <section className="relative min-h-[40vh] flex items-center justify-center bg-ivory pt-20">
+        <div className="absolute inset-0">
+          <img
+            src="/taust_1.png"
+            alt="Professionaalne jumestus"
+            className="w-full h-full object-cover"
           />
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 text-center flex flex-col items-center justify-center">
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.3 }}
+            className="font-serif text-4xl md:text-5xl lg:text-6xl text-dark font-medium leading-tight"
+          >
+            Galerii
+          </motion.h1>
         </div>
       </section>
 

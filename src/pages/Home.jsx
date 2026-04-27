@@ -12,7 +12,7 @@ const services = [
   },
   {
     icon: <Star size={28} />,
-    title: 'Glam',
+    title: 'Pidulik jumestus',
     description: '60 min · 55 €',
   },
   {
@@ -68,7 +68,7 @@ export default function Home() {
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?q=80&w=2071&auto=format&fit=crop"
+            src="/main6.jpg"
             alt="Professionaalne jumestus"
             className="w-full h-full object-cover"
           />
@@ -124,10 +124,10 @@ export default function Home() {
               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
             </a>
             <Link
-              to="/galerii"
+              to="/hinnakiri"
               className="px-10 py-4 border border-cream/30 text-cream text-xs tracking-[0.2em] uppercase font-medium hover:bg-cream/10 transition-all duration-500"
             >
-              Vaata galeriid
+              Hinnakiri
             </Link>
           </motion.div>
         </div>
@@ -140,7 +140,7 @@ export default function Home() {
             <FadeInView direction="left">
               <div className="relative">
                 <img
-                  src="/Pilt_Kristi.png"
+                  src="/Pilt_Kristi2.png"
                   alt="Kristi Kliimann profiilipilt"
                   className="w-full aspect-[3/4] object-cover"
                 />
@@ -157,12 +157,13 @@ export default function Home() {
                   <span className="italic text-rose">jumestus on minu kunst</span>
                 </h2>
 
-                <div className="space-y-5 text-warm-gray font-light leading-relaxed">
+                <div className="space-y-6 text-warm-gray font-light leading-relaxed text-lg md:text-xl text-justify">
                   <p>
                     Sinu ilu, minu kirg – juba 10 aastat.
                   </p>
                   <p>
-                    Usun südamest, et iga naine on ilus. Minu töö ei ole seda ilu luua, vaid see oskuslikult esile tuua. Kasutades vaid tipptasemel tooteid ja oma kümneaastast kogemustepagasit, loon Sulle meigi, mis ei pane Sind lihtsalt särama, vaid annab ka vankumatu enesekindluse.                  </p>
+                    Usun südamest, et iga naine on ilus. Minu töö ei ole seda ilu luua, vaid see oskuslikult esile tuua. Kasutades vaid tipptasemel tooteid ja oma kümneaastast kogemustepagasit, loon Sulle meigi, mis ei pane Sind lihtsalt särama, vaid annab ka vankumatu enesekindluse.
+                  </p>
                   <p>
                     Olgu tegu pulma, fotosessiooni või olulise peoga – minu eesmärk on, et peeglisse vaadates tunneksid Sa end ikka iseendana, kuid oma parimas ja lummavaimas versioonis. Sa väärid end tundma laitmatult.
                   </p>
@@ -173,8 +174,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== REVIEWS ===== */}
-      <section className="py-24 lg:py-32 bg-dark">
+      {/* ===== REVIEWS (Kompaktsem) ===== */}
+      <section className="py-16 lg:py-20 bg-dark">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <SectionHeading
             subtitle="Arvustused"
@@ -204,8 +205,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== SERVICES ===== */}
-      <section className="py-24 lg:py-32 bg-ivory">
+      {/* ===== SERVICES (Kompaktsem) ===== */}
+      <section className="py-16 lg:py-20 bg-ivory">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <SectionHeading
             title="Teenused"
@@ -215,18 +216,20 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {services.map((service, i) => (
               <FadeInView key={service.title} delay={i * 0.1}>
-                <div className="group bg-cream p-8 lg:p-12 text-center hover:shadow-xl transition-all duration-500 h-full flex flex-col items-center justify-center">
-                  <div className="text-rose mb-6 flex justify-center group-hover:scale-125 transition-transform duration-300">
-                    {service.icon}
+                <div className="group bg-cream p-10 lg:p-16 text-center hover:shadow-xl transition-all duration-500 h-full flex flex-col items-center justify-between min-h-80">
+                  <div className="flex-1 flex flex-col items-center justify-start">
+                    <div className="text-rose mb-8 flex justify-center group-hover:scale-125 transition-transform duration-300">
+                      {service.icon}
+                    </div>
+                    <h3 className="font-serif text-2xl lg:text-3xl font-medium text-dark">
+                      {service.title}
+                    </h3>
                   </div>
-                  <h3 className="font-serif text-xl lg:text-2xl font-medium text-dark mb-6">
-                    {service.title}
-                  </h3>
-                  <div className="flex flex-col items-center">
-                    <p className="text-3xl lg:text-4xl font-semibold text-rose mb-2">
+                  <div className="flex flex-col items-center gap-8 mt-8">
+                    <p className="text-4xl lg:text-5xl font-semibold text-rose">
                       {service.description.split(' · ')[1]}
                     </p>
-                    <p className="text-sm text-warm-gray font-light">
+                    <p className="text-base lg:text-lg text-warm-gray font-light">
                       {service.description.split(' · ')[0]}
                     </p>
                   </div>
@@ -236,7 +239,7 @@ export default function Home() {
           </div>
 
           <FadeInView delay={0.4}>
-            <div className="text-center mt-14">
+            <div className="text-center mt-12">
               <a
                 href="https://kkbeauty.setmore.com"
                 target="_blank"

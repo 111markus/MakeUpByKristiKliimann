@@ -9,7 +9,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 lg:px-12 py-10 lg:py-14">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
           {/* Brand */}
-          <div>
+          <div className="flex flex-col items-start justify-center min-h-[200px]">
             <div className="flex items-center gap-3 shrink-0">
               <img
                 src="/kristi_logo_refined.png"

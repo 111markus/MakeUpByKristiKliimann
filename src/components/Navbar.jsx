@@ -50,7 +50,7 @@ export default function Navbar() {
               className="h-12 lg:h-16 w-auto shrink-0"
             />
             <img
-              src="/kristi.png"
+              src="/kristi_valge.png"
               alt="K Logo"
               className={`h-10 w-auto shrink-0 transition-all duration-500 ${
                 showSolidBg ? 'brightness-0' : 'brightness-100'

@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion'
 import { ArrowRight, Plus } from 'lucide-react'
 import { useState } from 'react'
-import SectionHeading from '../components/SectionHeading'
 import FadeInView from '../components/FadeInView'
 
 const servicesList = [
@@ -15,19 +14,19 @@ const servicesList = [
     title: 'Pidulik jumestus',
     price: '55€',
     duration: '60 min',
-    description: 'Elegant ja särav meik gaaladeks, pidudeks ja spetsiaalseteks õhtuteks. Pikakestev ja kaunis.'
+    description: 'Elegantne ja särav meik gaaladeks, pidudeks ja spetsiaalseteks õhtuteks. Pikaajaline ja kaunis.'
   },
   {
     title: 'Fotomeik',
     price: '50€',
     duration: '60 min',
-    description: 'Professionaalne jumestus, mis näeb kaamera ees laitmatult välja. Ideaalne fotosessiooni ja pildistatiste jaoks.'
+    description: 'Professionaalne jumestus, mis näeb kaamera ees laitmatult välja. Ideaalne fotosessioonide jaoks.'
   },
   {
     title: 'Jumestus mehele',
     price: '20€',
     duration: '15 min',
-    description: 'Kerge ja loomulik jumestus mehele. Täiendab ilusat nägu ilma ülemääraselt välja paistmata.'
+    description: 'Kerge ja loomulik jumestus mehele. Ühtlustab näonaha ilma silmapaistva meigikihita.'
   }
 ]
 
@@ -37,51 +36,38 @@ export default function PriceList() {
   const toggleService = (index) => {
     setExpandedIndex(expandedIndex === index ? null : index)
   }
+
   return (
     <>
       {/* ===== HERO ===== */}
-      <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden pt-32">
-        {/* Background Image */}
+      <section className="relative min-h-[40vh] flex items-center justify-center overflow-hidden pt-20">
         <div className="absolute inset-0">
           <img
             src="/taust_2.png"
             alt="Professionaalne jumestus"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-dark/50 via-dark/35 to-dark/20" />
-          <div className="absolute inset-0 bg-gradient-to-t from-dark/40 via-transparent to-transparent" />
         </div>
 
-        {/* Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 text-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 text-center flex flex-col items-center justify-center">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.3 }}
-            className="font-serif text-4xl md:text-6xl lg:text-7xl text-cream font-medium leading-tight mb-6"
+            className="font-serif text-4xl md:text-5xl lg:text-6xl text-dark font-medium leading-tight"
           >
             Hinnakiri
           </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-cream text-base md:text-lg font-light max-w-xl mx-auto leading-relaxed"
-            style={{ textShadow: '0 2px 8px rgba(26, 26, 26, 0.3)' }}
-          >
-            Professionaalne jumestus sobiva hinnaga – iga eelarve jaoks.
-          </motion.p>
         </div>
       </section>
 
       {/* ===== SERVICES ===== */}
-      <section className="py-24 lg:py-32">
+      <section className="pt-16 lg:pt-24 pb-8 lg:pb-12">
         <div className="max-w-4xl mx-auto px-6 lg:px-12">
           <FadeInView delay={0.2}>
             <div className="bg-ivory p-10 lg:p-14">
               <h2 className="font-serif text-2xl md:text-3xl font-medium text-dark mb-10">
-                Hinnakiri
+                Teenused
               </h2>
               
               <div className="space-y-0">
@@ -130,13 +116,17 @@ export default function PriceList() {
                   </div>
                 ))}
               </div>
+
+              <p className="text-xs text-warm-gray font-light mt-10">
+                * Teenuse lõplik hind võib varieeruda vastavalt töömahule. Lisad (sh kunstripsmed) ei kuulu hinna sisse.
+              </p>
             </div>
           </FadeInView>
         </div>
       </section>
 
       {/* ===== CTA ===== */}
-      <section className="-mt-8 lg:-mt-10 pb-24 lg:pb-32">
+      <section className="pt-2 pb-12 lg:pb-16">
         <div className="max-w-4xl mx-auto px-6 lg:px-12 text-center">
           <FadeInView>
             <motion.a
