@@ -29,33 +29,33 @@ const services = [
 
 const testimonials = [
   {
-    name: 'Piret',
-    text: 'Väga rahule jäin! Kristi teeb oma tööd kirega ja see peegeldub tulemuses. Super ilus meik, mis püsib terve päeva!',
+    name: 'Gerli',
+    text: 'Kristi tegi minust, MEIE päeval, maailma kaunima pruudi! Suur aitäh Sulle selle imelise töö eest!',
     rating: 5,
   },
   {
-    name: 'Kadi-Ly',
-    text: 'Suur-suur aitäh Sulle, Kristi! Jäin meigiga väga rahule – see oli täpselt selline, nagu soovisin, ja pidas terve pika päeva ja öö vastu. Soovitan soojalt!',
+    name: 'Aurelie',
+    text: 'Ma ei ole end kunagi nii ilusana tundnud, teeb super tööd, soovitan!',
     rating: 5,
   },
   {
-    name: 'Merlyn',
-    text: 'Kristi on imeline meigikunstnik! Ta oskab nii hästi rõhutada inimese loomulikku ilu. Atmosfäär oli väga meeldiv ja tulemus lihtsalt super.',
+    name: 'Jana',
+    text: 'Mind pani Kristi ka printsessina tundma. Meik püsis ülihàsti peal. Soovitan tàiega kindla kàega Kristit!!!',
     rating: 5,
   },
   {
-    name: 'Triin',
-    text: 'Väga meeldiv kogemus! Kristi on oma töös väga professionaalne ja samas nii soe inimene. Meik püsis veatuna ürituse lõpuni.',
+    name: 'Marrit',
+    text: 'Väga kaunis meik. Püsis väga hästi. Soovitan soojalt kõigile. Aitähh',
     rating: 5,
   },
   {
-    name: 'Anete',
-    text: 'Minu kindel lemmik! Kristi juures tunned end alati hoituna ja tulemus on alati 5+. Aitäh!',
+    name: 'Liina',
+    text: 'Kristi on väga andekas ja tema tehtud jumestus oli imeilus ning püsis väga hästi. Kindlasti kohtume taas',
     rating: 5,
   },
   {
-    name: 'Grete-Lilijane',
-    text: 'Väga tubli ja andekas meikar! Soovitan kõigile, kes soovivad tõeliselt ilusat ja kvaliteetset jumestust.',
+    name: 'Kätlin',
+    text: 'Kristi tehtud jumestus püsis veatuna terve pika päeva. Lisaks suudab Kristi väga hästi tabada kliendi olemust ja teha just temale sobiliku jumestuse. Jäin väga rahule!',
     rating: 5,
   },
 ]
