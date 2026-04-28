@@ -68,7 +68,7 @@ export default function Home() {
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
-            src="/avaleht5.png"
+            src="/avaleht7.png"
             alt="Professionaalne jumestus"
             className="w-full h-full object-cover"
           />
@@ -95,7 +95,7 @@ export default function Home() {
           >
             Professionaalne jumestus
             <br />
-            <span className="italic text-blush">sinu erilisteks hetkedeks</span>
+            <span className="italic text-blush">Sinu erilisteks hetkedeks</span>
           </motion.h1>
 
           <motion.p
