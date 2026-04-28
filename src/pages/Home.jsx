@@ -68,7 +68,7 @@ export default function Home() {
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
-            src="/avaleht7.png"
+            src="/avaleht8.png"
             alt="Professionaalne jumestus"
             className="w-full h-full object-cover"
           />
