@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: makeup-by-kristi
+    runtime: node
+    buildCommand: npm install && npm run build
+    startCommand: npm install -g serve && serve -s dist -l 3000
+    envVars:
+      - key: NODE_ENV
+        value: production
