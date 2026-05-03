@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Instagram, Mail, Phone, MapPin, Heart } from 'lucide-react'
+import { Instagram, Mail, Phone, MapPin, Facebook } from 'lucide-react'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -83,6 +83,15 @@ export default function Footer() {
               >
                 <Instagram size={16} />
                 @makeupbykristikliimann
+              </a>
+              <a
+                href="https://www.facebook.com/KristiKliimannMakeup"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 text-sm text-cream/60 hover:text-rose transition-colors duration-300"
+              >
+                <Facebook size={16} />
+                KristiKliimannMakeup
               </a>
               <p className="flex items-center gap-3 text-sm text-cream/60">
                 <MapPin size={16} />

@@ -10,7 +10,7 @@ const contactInfo = [
     value: '+372 5675 4911',
     href: 'tel:+37256754911',
   },
-    {
+  {
     icon: <Mail size={20} />,
     label: 'E-mail',
     value: 'kristikliimann.kk@gmail.com',
@@ -25,7 +25,7 @@ const contactInfo = [
   {
     icon: <Facebook size={20} />,
     label: 'Facebook',
-    value: 'Kristi Kliimann Makeup',
+    value: 'KristiKliimannMakeup',
     href: 'https://www.facebook.com/KristiKliimannMakeup',
   },
   {
@@ -41,7 +41,7 @@ export default function Contact() {
     <>
       {/* ===== HERO (Uuendatud vastavalt PriceList stiilile) ===== */}
       <section className="relative min-h-[40vh] flex items-center justify-center bg-ivory pt-20">
-          <div className="absolute inset-0">
+        <div className="absolute inset-0">
           <img
             src="/pilt_2.png"
             alt="Professionaalne jumestus"

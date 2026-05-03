@@ -330,11 +330,10 @@ export default function Home() {
                     aria-label={`Slaid ${idx + 1}`}
                   >
                     <div
-                      className={`rounded-full transition-all duration-300 ease-out ${
-                        idx === currentReview 
-                          ? 'bg-rose w-3 h-3' 
+                      className={`rounded-full transition-all duration-300 ease-out ${idx === currentReview
+                          ? 'bg-rose w-3 h-3'
                           : 'bg-cream/20 w-2 h-2 group-hover:bg-cream/40'
-                      }`}
+                        }`}
                     />
                   </button>
                 ))}

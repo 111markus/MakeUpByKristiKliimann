@@ -1,16 +1,46 @@
-# React + Vite
+# Kristi Kliimann | Professionaalne Jumestaja
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+See on Kristi Kliimanni professionaalne portfoolio ja broneerimiskeskkond, mis on loodud pakkuma klientidele ülevaadet pakutavatest iluteenustest, tehtud töödest ning mugavat viisi aja broneerimiseks.
 
-Currently, two official plugins are available:
+## 🚀 Tehnoloogiad
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Projekt on ehitatud kaasaegsete veebitehnoloogiatega, tagades kiiruse, stabiilsuse ja suurepärase kasutajakogemuse:
 
-## React Compiler
+- **React 19** – Kasutusel on uusim Reacti versioon parima jõudluse tagamiseks.
+- **Vite** – Kiire ja kaasaegne arenduskeskkond ning build-tööriist.
+- **Tailwind CSS 4** – Järgmise põlvkonna stiilisüsteem, mis tagab puhta koodi ja täieliku mobiilse kohanduvuse.
+- **Framer Motion** – Sujuvad ja luksuslikud animatsioonid (Fade-in efektid, karussellid).
+- **Lucide React** – Kaasaegsed ja minimalistlikud ikoonid.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Peamised funktsioonid
 
-## Expanding the ESLint configuration
+- **Dünaamiline galerii** – Kõrge kvaliteediga tööde näidised koos interaktiivse Lightbox vaatega.
+- **Interaktiivne hinnakiri** – Selgelt kategoriseeritud teenused koos detailsete kirjeldustega.
+- **Klientide tagasiside** – Sujuv arvustuste karussell, mis kuvab rahulolevate klientide kogemusi.
+- **Mobiilisõbralik disain** – Veebileht on optimeeritud töötama laitmatult nii nutitelefonides, tahvelarvutites kui ka lauaarvutites.
+- **Kiirus ja SEO** – Pildid on optimeeritud, kasutusel on kaasaegsed laadimistehnikad (LCP optimisatsioon) ja semantiline HTML.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Arendus ja paigaldus
+
+1. **Sõltuvuste paigaldamine:**
+   ```bash
+   npm install
+   ```
+
+2. **Arendusserveri käivitamine:**
+   ```bash
+   npm run dev
+   ```
+
+3. **Production build:**
+   ```bash
+   npm run build
+   ```
+
+## 📸 Meedia optimeerimine
+
+Veebileht kasutab optimeeritud meediafaile, et tagada kiire laadimisaeg. Kõik galerii pildid on skaleeritud ja pakitud, et vähendada andmemahtu ilma visuaalset kvaliteeti kaotamata.
+
+---
+
+*Loodud armastusega ilu ja tehnoloogia vastu.*
