@@ -1,29 +1,58 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ArrowRight, Sparkles, Heart, Star, Camera } from 'lucide-react'
+import { ArrowRight, Sparkles, Heart, Star, Camera, Crown, Gift, Wand2, Zap, ChevronLeft, ChevronRight } from 'lucide-react'
+import { useState } from 'react'
 import SectionHeading from '../components/SectionHeading'
 import FadeInView from '../components/FadeInView'
 
 const services = [
   {
+    icon: <Crown size={28} />,
+    title: 'Pruudimeik',
+    time: '90 min',
+    price: '75 €',
+  },
+  {
     icon: <Sparkles size={28} />,
     title: 'Fantaasiameik',
-    description: '90 min · 60 €',
+    time: '90 min',
+    price: '60 €',
+  },
+  {
+    icon: <Heart size={28} />,
+    title: 'Pruudi proovimeik',
+    time: '90 min',
+    price: '55 €',
   },
   {
     icon: <Star size={28} />,
     title: 'Pidulik jumestus',
-    description: '60 min · 55 €',
+    time: '60 min',
+    price: '55 €',
+  },
+  {
+    icon: <Wand2 size={28} />,
+    title: 'Pruudisoeng',
+    time: '90 min',
+    price: '55 €',
   },
   {
     icon: <Camera size={28} />,
     title: 'Fotomeik',
-    description: '60 min · 50 €',
+    time: '60 min',
+    price: '50 €',
   },
   {
-    icon: <Heart size={28} />,
-    title: 'Jumestus mehele',
-    description: '15 min · 20 €',
+    icon: <Gift size={28} />,
+    title: 'Pruudi proovisoeng',
+    time: '90 min',
+    price: '45 €',
+  },
+  {
+    icon: <Zap size={28} />,
+    title: 'Soengud',
+    time: '60 min',
+    price: '40 €',
   },
 ]
 
@@ -34,8 +63,33 @@ const testimonials = [
     rating: 5,
   },
   {
+    name: 'Sandra',
+    text: 'Ise on Kristi üliüli sõbralik ja selle meigiga tundsin end nagu printsess niiet kindlasti soovitan',
+    rating: 5,
+  },
+  {
     name: 'Aurelie',
     text: 'Ma ei ole end kunagi nii ilusana tundnud, teeb super tööd, soovitan!',
+    rating: 5,
+  },
+  {
+    name: 'Pille-Riin',
+    text: 'Jäin väga rahule! Meik oli ilus, püsis peal terve pika päeva ja oli ideaalse katvusega. Kindlasti lähen tagasi ja soovitan ka teistele!',
+    rating: 5,
+  },
+  {
+    name: 'Niina',
+    text: 'Väga meeldis!',
+    rating: 5,
+  },
+  {
+    name: 'Helis',
+    text: 'Kristi on väga tubli ja pühendunud, hea kunstimeele ja värvitunnetusega, armas meikar!',
+    rating: 5,
+  },
+  {
+    name: 'Kirsti',
+    text: 'Olen alati meigiga ülimalt rahule jäänud ja Kristi ise on ka super tore inimene. Soovitan!',
     rating: 5,
   },
   {
@@ -44,8 +98,18 @@ const testimonials = [
     rating: 5,
   },
   {
+    name: 'Küllike',
+    text: 'Jäin väga rahule nii meigi kui soenguga. Super! Kindlasti tulen veelkord tagasi. Ilusat jõuluaega Teile.',
+    rating: 5,
+  },
+  {
     name: 'Marrit',
     text: 'Väga kaunis meik. Püsis väga hästi. Soovitan soojalt kõigile. Aitähh',
+    rating: 5,
+  },
+  {
+    name: 'Angelica',
+    text: 'Käisin lõpumeiki ja soengut tegemas.. olin tulemusega ülirahul. Väga kaunis tulemus sai ning püsis peal väga hästi. Aitäh!',
     rating: 5,
   },
   {
@@ -58,9 +122,35 @@ const testimonials = [
     text: 'Kristi tehtud jumestus püsis veatuna terve pika päeva. Lisaks suudab Kristi väga hästi tabada kliendi olemust ja teha just temale sobiliku jumestuse. Jäin väga rahule!',
     rating: 5,
   },
+  {
+    name: 'Elina',
+    text: 'Sõnu polegi vaja. Ja loodan, et tead seda, alati rohkem kui veel rahul!',
+    rating: 5,
+  },
+  {
+    name: 'Kedli',
+    text: 'Aitäh super meigikunstnikule, kes pani mu särama',
+    rating: 5,
+  },
 ]
 
 export default function Home() {
+  const [currentReview, setCurrentReview] = useState(2)
+  const itemsPerSlide = 3
+  const totalSlides = Math.ceil(testimonials.length / itemsPerSlide)
+
+  const nextReview = () => {
+    setCurrentReview((prev) => (prev + 1) % totalSlides)
+  }
+
+  const prevReview = () => {
+    setCurrentReview((prev) => (prev - 1 + totalSlides) % totalSlides)
+  }
+
+  const getVisibleTestimonials = () => {
+    const startIdx = currentReview * itemsPerSlide
+    return testimonials.slice(startIdx, startIdx + itemsPerSlide)
+  }
   return (
     <>
       {/* ===== HERO ===== */}
@@ -115,7 +205,7 @@ export default function Home() {
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <a
-              href="https://kkbeauty.setmore.com"
+              href="https://kristikliimannbeauty.setmore.com"
               target="_blank"
               rel="noopener noreferrer"
               className="group px-10 py-4 bg-cream text-dark text-xs tracking-[0.2em] uppercase font-medium hover:bg-rose hover:text-cream transition-all duration-500 flex items-center gap-3"
@@ -174,7 +264,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== REVIEWS (Kompaktsem) ===== */}
+      {/* ===== REVIEWS (Carousel) ===== */}
       <section className="py-16 lg:py-20 bg-dark">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <SectionHeading
@@ -183,24 +273,66 @@ export default function Home() {
             light
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {testimonials.map((t, i) => (
-              <FadeInView key={t.name} delay={i * 0.1}>
-                <div className="border border-cream/10 p-8 lg:p-10 h-full flex flex-col">
-                  <div className="flex gap-1 mb-6">
-                    {[...Array(t.rating)].map((_, idx) => (
-                      <Star key={idx} size={14} className="fill-rose text-rose" />
-                    ))}
+          <div className="relative">
+            {/* Carousel Content - 3 items */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+              {getVisibleTestimonials().map((t) => (
+                <motion.div
+                  key={t.name}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="border border-cream/10 p-8 lg:p-10 h-80 flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="flex gap-1 mb-6">
+                      {[...Array(t.rating)].map((_, idx) => (
+                        <Star key={idx} size={14} className="fill-rose text-rose" />
+                      ))}
+                    </div>
+                    <p className="text-cream/70 text-sm font-light leading-relaxed italic mb-4 line-clamp-6">
+                      "{t.text}"
+                    </p>
                   </div>
-                  <p className="text-cream/70 text-sm font-light leading-relaxed italic mb-4 flex-grow">
-                    "{t.text}"
-                  </p>
                   <div>
                     <p className="text-cream font-serif text-base">{t.name}</p>
                   </div>
-                </div>
-              </FadeInView>
-            ))}
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Navigation Buttons and Dots */}
+            <div className="flex justify-between items-center mt-8">
+              <button
+                onClick={prevReview}
+                className="p-3 rounded-full border border-cream/30 text-cream hover:border-rose hover:text-rose transition-all duration-300"
+                aria-label="Eelmine arvustus"
+              >
+                <ChevronLeft size={24} />
+              </button>
+
+              {/* Dots */}
+              <div className="flex gap-2">
+                {[...Array(totalSlides)].map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setCurrentReview(idx)}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      idx === currentReview ? 'bg-rose w-6' : 'bg-cream/30 hover:bg-cream/60'
+                    }`}
+                    aria-label={`Slide ${idx + 1}`}
+                  />
+                ))}
+              </div>
+
+              <button
+                onClick={nextReview}
+                className="p-3 rounded-full border border-cream/30 text-cream hover:border-rose hover:text-rose transition-all duration-300"
+                aria-label="Järgmine arvustus"
+              >
+                <ChevronRight size={24} />
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -216,21 +348,22 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {services.map((service, i) => (
               <FadeInView key={service.title} delay={i * 0.1}>
-                <div className="group bg-cream p-10 lg:p-16 text-center hover:shadow-xl transition-all duration-500 h-full flex flex-col items-center justify-between min-h-80">
+                <div className={`group bg-cream p-6 lg:p-8 text-center hover:shadow-xl transition-all duration-500 h-full flex flex-col items-center justify-between min-h-56 ${i === services.length - 1 ? 'lg:col-start-2 lg:col-span-2' : ''}`}>
                   <div className="flex-1 flex flex-col items-center justify-start">
-                    <div className="text-rose mb-8 flex justify-center group-hover:scale-125 transition-transform duration-300">
+                    <div className="text-rose mb-6 flex justify-center group-hover:scale-125 transition-transform duration-300">
                       {service.icon}
                     </div>
                     <h3 className="font-serif text-2xl lg:text-3xl font-medium text-dark">
                       {service.title}
                     </h3>
                   </div>
-                  <div className="flex flex-col items-center gap-8 mt-8">
+                  <div className="flex flex-col items-center gap-2 mt-6">
+                    <p className="text-xs text-rose font-light">alates</p>
                     <p className="text-4xl lg:text-5xl font-semibold text-rose">
-                      {service.description.split(' · ')[1]}
+                      {service.price}
                     </p>
                     <p className="text-base lg:text-lg text-warm-gray font-light">
-                      {service.description.split(' · ')[0]}
+                      {service.time}
                     </p>
                   </div>
                 </div>
@@ -239,9 +372,9 @@ export default function Home() {
           </div>
 
           <FadeInView delay={0.4}>
-            <div className="text-center mt-12">
+            <div className="text-center mt-20 mb-2">
               <a
-                href="https://kkbeauty.setmore.com"
+                href="https://kristikliimannbeauty.setmore.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 px-10 py-4 bg-dark text-cream text-xs tracking-[0.2em] uppercase font-medium hover:bg-charcoal transition-all duration-500"

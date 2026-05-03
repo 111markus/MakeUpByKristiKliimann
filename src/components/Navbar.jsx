@@ -80,7 +80,7 @@ export default function Navbar() {
             {/* Logo and Button group */}
             <div className="hidden md:flex items-center gap-4">
               <a
-                href="https://kkbeauty.setmore.com"
+                href="https://kristikliimannbeauty.setmore.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-7 py-3 border-2 border-rose text-rose text-xs tracking-widest uppercase font-medium rounded-sm hover:bg-rose hover:text-cream transition-all duration-300"
@@ -126,7 +126,7 @@ export default function Navbar() {
                 </Link>
               ))}
               <a
-                href="https://kkbeauty.setmore.com"
+                href="https://kristikliimannbeauty.setmore.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block mt-4 px-8 py-3 border-2 border-rose text-rose text-xs tracking-widest uppercase font-medium rounded-sm hover:bg-rose hover:text-cream transition-all duration-300"

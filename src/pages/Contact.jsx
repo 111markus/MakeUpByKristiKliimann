@@ -131,15 +131,13 @@ export default function Contact() {
               Kiireim viis
             </p>
             <h2 className="font-serif text-3xl md:text-4xl font-medium text-dark mb-6">
-              Broneeri aeg <span className="italic text-rose">online</span>
+              Broneeri aeg <span className="italic text-rose">onlines</span>
             </h2>
             <p className="text-warm-gray font-light mb-8 max-w-lg mx-auto leading-relaxed">
               Vali sobiv aeg ja teenus mugavalt veebis.
-              <br />
-              Kinnitan broneeringu 24 tunni jooksul.
             </p>
             <a
-              href="https://kkbeauty.setmore.com"
+              href="https://kristikliimannbeauty.setmore.com"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block px-10 py-4 bg-dark text-cream text-xs tracking-[0.2em] uppercase font-medium hover:bg-charcoal transition-all duration-500"

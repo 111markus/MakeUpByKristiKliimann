@@ -43,7 +43,7 @@ export default function Footer() {
                 </Link>
               ))}
               <a
-                href="https://kkbeauty.setmore.com"
+                href="https://kristikliimannbeauty.setmore.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-sm text-rose hover:text-blush transition-colors duration-300"
