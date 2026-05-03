@@ -78,6 +78,29 @@
   border-radius: 4px;
 }
 
+/* ===== Gallery Image Quality Fix ===== */
+.gallery-preview-img {
+  image-rendering: auto;
+  /* Remove hardware acceleration for static state to allow better browser interpolation */
+  transform: none;
+  backface-visibility: visible;
+  -webkit-backface-visibility: visible;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.group:hover .gallery-preview-img {
+  transform: scale(1.05);
+  /* Optional: add backface-visibility only during transform if flickering occurs */
+}
+
+@supports (image-rendering: smooth) {
+  .gallery-preview-img {
+    image-rendering: smooth;
+  }
+}
+
+
+
 /* ===== Initial loading overlay ===== */
 .loading-overlay {
   position: fixed;

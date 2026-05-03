@@ -56,7 +56,12 @@ export default function Gallery() {
           <img
             src="/taust_1.png"
             alt="Professionaalne jumestus"
+            width="1920"
+            height="800"
             className="w-full h-full object-cover"
+            loading="eager"
+            fetchpriority="high"
+            decoding="sync"
           />
         </div>
 
@@ -87,8 +92,13 @@ export default function Gallery() {
                   <img
                     src={image.src}
                     alt={image.alt}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    loading="lazy"
+                    width="600"
+                    height="750"
+                    className="w-full h-full object-cover gallery-preview-img"
+                    loading={image.id < 7 ? 'eager' : 'lazy'}
+                    fetchpriority={image.id < 2 ? 'high' : 'auto'}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    decoding="async"
                   />
                   <div className="absolute inset-0 bg-dark/0 group-hover:bg-dark/30 transition-all duration-500" />
                   <div className="absolute inset-0 flex items-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -126,8 +136,15 @@ export default function Gallery() {
               transition={{ duration: 0.3 }}
               src={lightboxImage.src}
               alt={lightboxImage.alt}
+              title={lightboxImage.alt}
               onClick={(e) => e.stopPropagation()}
               className="max-w-[90%] max-h-[90vh] object-contain cursor-default shadow-2xl"
+              decoding="sync"
+              style={{
+                imageRendering: 'auto',
+                WebkitFontSmoothing: 'antialiased',
+                transform: 'translate3d(0, 0, 0)',
+              }}
             />
           </motion.div>
         )}

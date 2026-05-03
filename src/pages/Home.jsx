@@ -154,13 +154,18 @@ export default function Home() {
   return (
     <>
       {/* ===== HERO ===== */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-screen min-h-[100svh] flex items-center justify-center overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
             src="/avaleht8.png"
             alt="Professionaalne jumestus"
+            width="1920"
+            height="1080"
             className="w-full h-full object-cover"
+            loading="eager"
+            fetchpriority="high"
+            decoding="sync"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-dark/70 via-dark/40 to-dark/20" />
           <div className="absolute inset-0 bg-gradient-to-t from-dark/60 via-transparent to-transparent" />
@@ -232,7 +237,11 @@ export default function Home() {
                 <img
                   src="/Pilt_Kristi2.png"
                   alt="Kristi Kliimann profiilipilt"
+                  width="800"
+                  height="1067"
                   className="w-full aspect-[3/4] object-cover"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div className="absolute -bottom-4 -left-4 w-full h-full border border-rose/20 -z-10" />
               </div>
@@ -305,29 +314,35 @@ export default function Home() {
             <div className="flex justify-between items-center mt-8">
               <button
                 onClick={prevReview}
-                className="p-3 rounded-full border border-cream/30 text-cream hover:border-rose hover:text-rose transition-all duration-300"
+                className="w-12 h-12 flex items-center justify-center rounded-full border border-cream/30 text-cream hover:border-rose hover:text-rose transition-all duration-300"
                 aria-label="Eelmine arvustus"
               >
                 <ChevronLeft size={24} />
               </button>
 
               {/* Dots */}
-              <div className="flex gap-2">
+              <div className="flex items-center justify-center gap-4 min-w-[140px]">
                 {[...Array(totalSlides)].map((_, idx) => (
                   <button
                     key={idx}
                     onClick={() => setCurrentReview(idx)}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                      idx === currentReview ? 'bg-rose w-6' : 'bg-cream/30 hover:bg-cream/60'
-                    }`}
-                    aria-label={`Slide ${idx + 1}`}
-                  />
+                    className="relative w-4 h-4 flex items-center justify-center group"
+                    aria-label={`Slaid ${idx + 1}`}
+                  >
+                    <div
+                      className={`rounded-full transition-all duration-300 ease-out ${
+                        idx === currentReview 
+                          ? 'bg-rose w-3 h-3' 
+                          : 'bg-cream/20 w-2 h-2 group-hover:bg-cream/40'
+                      }`}
+                    />
+                  </button>
                 ))}
               </div>
 
               <button
                 onClick={nextReview}
-                className="p-3 rounded-full border border-cream/30 text-cream hover:border-rose hover:text-rose transition-all duration-300"
+                className="w-12 h-12 flex items-center justify-center rounded-full border border-cream/30 text-cream hover:border-rose hover:text-rose transition-all duration-300"
                 aria-label="Järgmine arvustus"
               >
                 <ChevronRight size={24} />

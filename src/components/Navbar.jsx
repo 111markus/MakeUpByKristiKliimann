@@ -42,16 +42,21 @@ export default function Navbar() {
           {/* Left Logo */}
           <Link
             to="/"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="hover:opacity-80 transition-opacity duration-300 flex items-center gap-3 shrink-0"
           >
             <img
               src="/kristi_logo_refined.png"
               alt="Kristi Kliimann"
+              width="48"
+              height="48"
               className="h-12 lg:h-16 w-auto shrink-0"
             />
             <img
               src="/kristi_valge.png"
               alt="K Logo"
+              width="40"
+              height="40"
               className={`h-10 w-auto shrink-0 transition-all duration-500 ${
                 showSolidBg ? 'brightness-0' : 'brightness-100'
               }`}

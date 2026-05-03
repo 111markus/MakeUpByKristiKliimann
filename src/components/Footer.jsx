@@ -14,11 +14,15 @@ export default function Footer() {
               <img
                 src="/kristi_logo_refined.png"
                 alt="Kristi Kliimann"
+                width="64"
+                height="64"
                 className="h-16 w-auto"
               />
               <img
                 src="/kristi_valge.png"
                 alt="K Logo"
+                width="48"
+                height="48"
                 className="h-12 w-auto"
               />
             </div>

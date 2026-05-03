@@ -45,7 +45,12 @@ export default function Contact() {
           <img
             src="/pilt_2.png"
             alt="Professionaalne jumestus"
+            width="1920"
+            height="800"
             className="w-full h-full object-cover"
+            loading="eager"
+            fetchpriority="high"
+            decoding="sync"
           />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 text-center flex flex-col items-center justify-center">
