@@ -82,27 +82,33 @@ export default function Gallery() {
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           
           {/* Image Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
             {galleryImages.map((image) => (
               <FadeInView key={image.id}>
-                <div
-                  className="group relative aspect-[4/5] overflow-hidden cursor-pointer"
-                  onClick={() => setLightboxImage(image)}
-                >
-                  <img
-                    src={image.src}
-                    alt={image.alt}
-                    width="600"
-                    height="750"
-                    className="w-full h-full object-cover gallery-preview-img"
-                    loading={image.id < 7 ? 'eager' : 'lazy'}
-                    fetchpriority={image.id < 2 ? 'high' : 'auto'}
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    decoding="async"
-                  />
-                  <div className="absolute inset-0 bg-dark/0 group-hover:bg-dark/30 transition-all duration-500" />
-                  <div className="absolute inset-0 flex items-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <p className="text-cream text-sm font-light">{image.alt}</p>
+                <div>
+                  {/* Image Container */}
+                  <div
+                    className="group relative aspect-[4/5] overflow-hidden cursor-pointer"
+                    onClick={() => setLightboxImage(image)}
+                  >
+                    <img
+                      src={image.src}
+                      alt={image.alt}
+                      width="600"
+                      height="750"
+                      className="w-full h-full object-cover gallery-preview-img"
+                      loading={image.id < 7 ? 'eager' : 'lazy'}
+                      fetchpriority={image.id < 2 ? 'high' : 'auto'}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      decoding="async"
+                    />
+                    {/* Gradient overlay - always visible on mobile, hover on desktop */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-dark/70 via-dark/0 to-transparent opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-all duration-500" />
+                    
+                    {/* Description overlay - always visible on mobile, hover on desktop */}
+                    <div className="absolute inset-0 flex items-end justify-start p-4 sm:p-6 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-500">
+                      <p className="text-cream text-[10px] sm:text-xs font-light tracking-wider uppercase">{image.alt}</p>
+                    </div>
                   </div>
                 </div>
               </FadeInView>
