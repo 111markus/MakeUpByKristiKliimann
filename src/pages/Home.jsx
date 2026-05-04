@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowRight, Sparkles, Heart, Star, Camera, Crown, Gift, Wand2, Zap, ChevronLeft, ChevronRight } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import SectionHeading from '../components/SectionHeading'
 import FadeInView from '../components/FadeInView'
 
@@ -136,15 +136,24 @@ const testimonials = [
 
 export default function Home() {
   const [currentReview, setCurrentReview] = useState(2)
+  const reviewsRef = useRef(null)
   const itemsPerSlide = 3
   const totalSlides = Math.ceil(testimonials.length / itemsPerSlide)
 
   const nextReview = () => {
     setCurrentReview((prev) => (prev + 1) % totalSlides)
+    scrollToReviews()
   }
 
   const prevReview = () => {
     setCurrentReview((prev) => (prev - 1 + totalSlides) % totalSlides)
+    scrollToReviews()
+  }
+
+  const scrollToReviews = () => {
+    if (reviewsRef.current) {
+      reviewsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
   }
 
   const getVisibleTestimonials = () => {
@@ -274,7 +283,7 @@ export default function Home() {
       </section>
 
       {/* ===== REVIEWS (Carousel) ===== */}
-      <section className="py-16 lg:py-20 bg-dark">
+      <section className="py-16 lg:py-20 bg-dark" ref={reviewsRef}>
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <SectionHeading
             subtitle="Arvustused"
