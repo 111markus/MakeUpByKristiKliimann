@@ -1,71 +1,38 @@
 import { motion } from 'framer-motion'
 import { ArrowRight, Plus } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import FadeInView from '../components/FadeInView'
-
-const serviceCategories = [
-  {
-    category: 'Jumestus',
-    services: [
-      {
-        title: 'Pruudimeik',
-        price: '75€',
-        duration: '90 min',
-        description: 'Professionaalne ja kestev pruudimeik Sinu oluliseks päevaks vahemikus 75 kuni 80 eurot.'
-      },
-      {
-        title: 'Fantaasiameik',
-        price: '60€',
-        duration: '90 min',
-        description: 'Loominguline fantaasiameik alates 60 eurost. Lõplik hind sõltub kavandi keerukusest ja kasutatavatest lisamaterjalidest.'
-      },
-      {
-        title: 'Pruudi proovimeik',
-        price: '55€',
-        duration: '90 min',
-        description: 'Proovisoeng annab Sinule täieliku pildi, kuidas Sa pulmapäeval välja näed. Ideaalne aeg viimistluseks ja muudatusteks.'
-      },
-      {
-        title: 'Pidulik jumestus',
-        price: '55€',
-        duration: '60 min',
-        description: 'Elegantne ja särav meik gaaladeks, pidudeks ja spetsiaalseteks õhtuteks. Pikaajaline ja kaunis.'
-      },
-      {
-        title: 'Fotomeik',
-        price: '50€',
-        duration: '60 min',
-        description: 'Professionaalne fotomeik 50€ ning püsiv lavameik 55€, tagades korrektse ja silmapaistva välimuse olukorras.'
-      }
-    ]
-  },
-  {
-    category: 'Soengud',
-    services: [
-      {
-        title: 'Pruudisoeng',
-        price: '55€',
-        duration: '90 min',
-        description: 'Piduliku pruudisoengu alates 55 eurost. Täpne hind selgub vastavalt töö keerukusele ning juuste pikkusele ja paksusele.'
-      },
-      {
-        title: 'Pruudi proovisoeng',
-        price: '45€',
-        duration: '90 min',
-        description: 'Professionaalne soenguteenus alates 45 eurost. Lõplik hind kujuneb vastavalt töö keerukusele ning juuste pikkusele ja paksusele.'
-      },
-      {
-        title: 'Soengud',
-        price: '40€',
-        duration: '60 min',
-        description: 'Paku endale luksuslikku välimust: professionaalsed lokid, glamuursed lained ning kinnised või poolkinnised soengud hinnaga alates 40 eurost.'
-      }
-    ]
-  }
-]
+import { getServices } from '../lib/api'
 
 export default function PriceList() {
   const [expandedIndex, setExpandedIndex] = useState(null)
+  const [servicesByCategory, setServicesByCategory] = useState(null)
+  const [loadError, setLoadError] = useState(null)
+
+  useEffect(() => {
+    let cancelled = false
+    getServices()
+      .then((data) => {
+        if (cancelled) return
+        setServicesByCategory(data)
+      })
+      .catch((err) => {
+        if (cancelled) return
+        setLoadError(err)
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  const serviceCategories = useMemo(() => {
+    if (!servicesByCategory) return []
+    return Object.entries(servicesByCategory).map(([category, services]) => ({
+      category,
+      services
+    }))
+  }, [servicesByCategory])
 
   const toggleService = (categoryIndex, serviceIndex) => {
     const key = `${categoryIndex}-${serviceIndex}`
@@ -109,6 +76,12 @@ export default function PriceList() {
               <h2 className="font-serif text-2xl md:text-3xl font-medium text-dark mb-10">
                 Teenused
               </h2>
+
+              {loadError && (
+                <p className="text-sm text-rose font-light mb-6">
+                  Teenuste laadimine ebaõnnestus.
+                </p>
+              )}
               
               <div className="space-y-0">
                 {serviceCategories.map((category, categoryIndex) => (
@@ -125,8 +98,8 @@ export default function PriceList() {
                           >
                             <div className="flex-1 text-left">
                               <div className="flex items-baseline justify-between gap-4">
-                                <h3 className="font-light text-lg md:text-xl text-dark">{service.title}</h3>
-                                <span className="font-light text-lg md:text-xl text-dark">{service.price}</span>
+                                <h3 className="font-light text-lg md:text-xl text-dark">{service.name}</h3>
+                                <span className="font-light text-lg md:text-xl text-dark">{service.price}€</span>
                               </div>
                             </div>
                             <motion.div
@@ -151,10 +124,7 @@ export default function PriceList() {
                             >
                               <div className="px-0 py-4">
                                 <p className="text-warm-gray font-light leading-relaxed text-base">
-                                  {service.description}
-                                </p>
-                                <p className="text-sm text-warm-gray font-light mt-3">
-                                  {service.duration}
+                                  Hind: {service.price}€
                                 </p>
                               </div>
                             </motion.div>

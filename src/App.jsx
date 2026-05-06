@@ -7,6 +7,7 @@ import Home from './pages/Home'
 import PriceList from './pages/PriceList'
 import Gallery from './pages/Gallery'
 import Contact from './pages/Contact'
+import Admin from './pages/Admin'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -32,6 +33,7 @@ function App() {
           <Route path="/hinnakiri" element={<PriceList />} />
           <Route path="/galerii" element={<Gallery />} />
           <Route path="/kontakt" element={<Contact />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </main>
       <Footer />
