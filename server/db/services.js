@@ -37,20 +37,6 @@ const SEED_HOME_SERVICES = [
   { icon: 'Zap', title: 'Soengud', duration_minutes: 60, price: 40, sort_order: 8 }
 ]
 
-const LOCAL_DATA_SNAPSHOT_VERSION = '2026-05-07-local-prices-v1'
-const LOCAL_DATA_SNAPSHOT_CATEGORIES = [
-  {
-    name: 'Jumestus',
-    sort_order: 1,
-    note: 'Teenuse l\u00f5plik hind v\u00f5ib varieeruda vastavalt t\u00f6\u00f6mahule. Lisad (sh kunstripsmed) ei kuulu hinna sisse.'
-  },
-  {
-    name: 'Soengud',
-    sort_order: 2,
-    note: 'Teenuse l\u00f5plik hind v\u00f5ib varieeruda vastavalt t\u00f6\u00f6mahule, juuste paksusele ja pikkusele.'
-  }
-]
-
 let db
 
 export function getDbPath() {
@@ -107,7 +93,6 @@ export function getDb() {
   seedCategories(db)
   seedCategoryNotesOnce(db)
   seedHomeServices(db)
-  applyLocalDataSnapshotOnce(db)
   return db
 }
 
@@ -167,37 +152,6 @@ function seedHomeServices(dbInstance) {
     for (const item of items) insert.run(item)
   })
   tx(SEED_HOME_SERVICES)
-}
-
-function applyLocalDataSnapshotOnce(dbInstance) {
-  const seeded = dbInstance
-    .prepare("SELECT value FROM app_meta WHERE key = 'local_data_snapshot_version'")
-    .get()
-
-  if (seeded?.value === LOCAL_DATA_SNAPSHOT_VERSION) return
-
-  const insertCategory = dbInstance.prepare('INSERT INTO categories (name, sort_order, note) VALUES (@name, @sort_order, @note)')
-  const insertService = dbInstance.prepare(
-    'INSERT INTO services (category, name, description, duration_minutes, price, sort_order) VALUES (@category, @name, @description, @duration_minutes, @price, @sort_order)'
-  )
-  const insertHomeService = dbInstance.prepare(
-    'INSERT INTO home_services (icon, title, duration_minutes, price, sort_order) VALUES (@icon, @title, @duration_minutes, @price, @sort_order)'
-  )
-
-  const tx = dbInstance.transaction(() => {
-    dbInstance.prepare('DELETE FROM services').run()
-    dbInstance.prepare('DELETE FROM home_services').run()
-    dbInstance.prepare('DELETE FROM categories').run()
-
-    LOCAL_DATA_SNAPSHOT_CATEGORIES.forEach((category) => insertCategory.run(category))
-    SEED_SERVICES.forEach((service) => insertService.run(service))
-    SEED_HOME_SERVICES.forEach((service) => insertHomeService.run(service))
-    dbInstance
-      .prepare("INSERT OR REPLACE INTO app_meta (key, value) VALUES ('local_data_snapshot_version', ?)")
-      .run(LOCAL_DATA_SNAPSHOT_VERSION)
-  })
-
-  tx()
 }
 
 export function listCategories() {
