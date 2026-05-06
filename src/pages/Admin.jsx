@@ -1,6 +1,14 @@
 import { useEffect, useMemo, useState } from 'react'
 import FadeInView from '../components/FadeInView'
-import { adminCreateService, adminDeleteService, adminUpdateService, getServices } from '../lib/api'
+import {
+  adminCreateService,
+  adminDeleteService,
+  adminUpdateService,
+  authLogin,
+  authLogout,
+  authMe,
+  getServices
+} from '../lib/api'
 
 function flatten(grouped) {
   const rows = []
@@ -11,13 +19,22 @@ function flatten(grouped) {
 }
 
 export default function Admin() {
+  const [session, setSession] = useState(null)
   const [grouped, setGrouped] = useState(null)
   const [error, setError] = useState(null)
   const [busy, setBusy] = useState(false)
 
+  const [login, setLogin] = useState({ username: '', password: '' })
+
   const rows = useMemo(() => flatten(grouped), [grouped])
 
-  const [form, setForm] = useState({ category: 'Jumestus', name: '', price: '' })
+  const [form, setForm] = useState({ category: 'Jumestus', name: '', description: '', price: '' })
+
+  const refreshSession = async () => {
+    const s = await authMe()
+    setSession(s)
+    return s
+  }
 
   const refresh = async () => {
     const data = await getServices()
@@ -25,8 +42,44 @@ export default function Admin() {
   }
 
   useEffect(() => {
-    refresh().catch(setError)
+    ;(async () => {
+      try {
+        const s = await refreshSession()
+        if (s.loggedIn) await refresh()
+      } catch (e) {
+        setError(e)
+      }
+    })()
   }, [])
+
+  const onLogin = async (e) => {
+    e.preventDefault()
+    setError(null)
+    setBusy(true)
+    try {
+      await authLogin({ username: login.username, password: login.password })
+      const s = await refreshSession()
+      if (s.loggedIn) await refresh()
+    } catch (err) {
+      setError(err)
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  const onLogout = async () => {
+    setError(null)
+    setBusy(true)
+    try {
+      await authLogout()
+      await refreshSession()
+      setGrouped(null)
+    } catch (err) {
+      setError(err)
+    } finally {
+      setBusy(false)
+    }
+  }
 
   const onCreate = async (e) => {
     e.preventDefault()
@@ -36,9 +89,10 @@ export default function Admin() {
       await adminCreateService({
         category: form.category,
         name: form.name,
+        description: form.description,
         price: Number(form.price)
       })
-      setForm((f) => ({ ...f, name: '', price: '' }))
+      setForm((f) => ({ ...f, name: '', description: '', price: '' }))
       await refresh()
     } catch (err) {
       setError(err)
@@ -80,101 +134,158 @@ export default function Admin() {
           <div className="bg-ivory p-8 lg:p-10">
             <h1 className="font-serif text-3xl font-medium text-dark mb-6">Admin</h1>
 
-            <div className="mb-8">
-              <h2 className="font-serif text-xl font-medium text-dark mb-3">Admin token</h2>
-              <p className="text-sm text-warm-gray font-light mb-3">
-                Pane siia sama token, mis on serveris <code className="px-1">ADMIN_TOKEN</code> env.
-              </p>
-              <input
-                className="w-full border border-warm-gray/30 bg-cream px-3 py-2 text-sm"
-                placeholder="ADMIN_TOKEN"
-                defaultValue={localStorage.getItem('ADMIN_TOKEN') || ''}
-                onChange={(e) => localStorage.setItem('ADMIN_TOKEN', e.target.value)}
-              />
-            </div>
+            {error && <p className="text-sm text-rose font-light mb-6">{String(error.message || error)}</p>}
 
-            <div className="mb-10">
-              <h2 className="font-serif text-xl font-medium text-dark mb-4">Lisa teenus</h2>
-              <form onSubmit={onCreate} className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                <input
-                  className="border border-warm-gray/30 bg-cream px-3 py-2 text-sm"
-                  value={form.category}
-                  onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))}
-                  placeholder="Kategooria"
-                />
-                <input
-                  className="border border-warm-gray/30 bg-cream px-3 py-2 text-sm"
-                  value={form.name}
-                  onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-                  placeholder="Nimi"
-                  required
-                />
-                <input
-                  className="border border-warm-gray/30 bg-cream px-3 py-2 text-sm"
-                  value={form.price}
-                  onChange={(e) => setForm((f) => ({ ...f, price: e.target.value }))}
-                  placeholder="Hind (nt 55)"
-                  required
-                />
-                <div className="md:col-span-3">
-                  <button
-                    disabled={busy}
-                    className="px-6 py-3 bg-rose text-cream text-xs tracking-[0.2em] uppercase font-medium hover:bg-dark transition-all duration-500 disabled:opacity-60"
-                    type="submit"
-                  >
-                    Salvesta
-                  </button>
-                </div>
-              </form>
-            </div>
+            {!session && <p className="text-sm text-warm-gray font-light">Laen...</p>}
 
-            <div>
-              <h2 className="font-serif text-xl font-medium text-dark mb-4">Teenused</h2>
-              {error && <p className="text-sm text-rose font-light mb-4">{String(error.message || error)}</p>}
-              {!grouped && <p className="text-sm text-warm-gray font-light">Laen...</p>}
-
-              <div className="space-y-3">
-                {rows.map((s) => (
-                  <div key={s.id} className="border border-warm-gray/30 bg-cream p-4">
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-2 items-center">
-                      <input
-                        className="border border-warm-gray/30 bg-ivory px-3 py-2 text-sm"
-                        defaultValue={s.category}
-                        onBlur={(e) => {
-                          const value = e.target.value
-                          if (value !== s.category) onQuickEdit(s.id, { category: value })
-                        }}
-                      />
-                      <input
-                        className="border border-warm-gray/30 bg-ivory px-3 py-2 text-sm"
-                        defaultValue={s.name}
-                        onBlur={(e) => {
-                          const value = e.target.value
-                          if (value !== s.name) onQuickEdit(s.id, { name: value })
-                        }}
-                      />
-                      <input
-                        className="border border-warm-gray/30 bg-ivory px-3 py-2 text-sm"
-                        defaultValue={String(s.price)}
-                        onBlur={(e) => {
-                          const value = Number(e.target.value)
-                          if (Number.isFinite(value) && value !== s.price) onQuickEdit(s.id, { price: value })
-                        }}
-                      />
-                      <div className="flex gap-2 justify-end">
-                        <button
-                          disabled={busy}
-                          className="px-4 py-2 border border-rose text-rose text-xs tracking-[0.15em] uppercase hover:bg-rose hover:text-cream transition disabled:opacity-60"
-                          onClick={() => onDelete(s.id)}
-                        >
-                          Kustuta
-                        </button>
-                      </div>
-                    </div>
+            {session && !session.loggedIn && (
+              <div className="mb-10">
+                <h2 className="font-serif text-xl font-medium text-dark mb-4">Logi sisse</h2>
+                <form onSubmit={onLogin} className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <input
+                    className="border border-warm-gray/30 bg-cream px-3 py-2 text-sm"
+                    value={login.username}
+                    onChange={(e) => setLogin((v) => ({ ...v, username: e.target.value }))}
+                    placeholder="Nimi (username)"
+                    autoComplete="username"
+                    required
+                  />
+                  <input
+                    className="border border-warm-gray/30 bg-cream px-3 py-2 text-sm"
+                    value={login.password}
+                    onChange={(e) => setLogin((v) => ({ ...v, password: e.target.value }))}
+                    placeholder="Parool (password)"
+                    type="password"
+                    autoComplete="current-password"
+                    required
+                  />
+                  <div className="md:col-span-2">
+                    <button
+                      disabled={busy}
+                      className="px-6 py-3 bg-rose text-cream text-xs tracking-[0.2em] uppercase font-medium hover:bg-dark transition-all duration-500 disabled:opacity-60"
+                      type="submit"
+                    >
+                      Logi sisse
+                    </button>
                   </div>
-                ))}
+                </form>
               </div>
-            </div>
+            )}
+
+            {session && session.loggedIn && (
+              <div className="flex items-center justify-between mb-8">
+                <p className="text-sm text-warm-gray font-light">Sisse logitud: {session.username}</p>
+                <button
+                  disabled={busy}
+                  className="px-4 py-2 border border-warm-gray/30 text-dark text-xs tracking-[0.15em] uppercase hover:bg-dark hover:text-cream transition disabled:opacity-60"
+                  onClick={onLogout}
+                >
+                  Logi välja
+                </button>
+              </div>
+            )}
+
+            {session && session.loggedIn && (
+              <>
+                <div className="mb-10">
+                  <h2 className="font-serif text-xl font-medium text-dark mb-4">Lisa teenus</h2>
+                  <form onSubmit={onCreate} className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <input
+                      className="border border-warm-gray/30 bg-cream px-3 py-2 text-sm"
+                      value={form.category}
+                      onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))}
+                      placeholder="Kategooria"
+                    />
+                    <input
+                      className="border border-warm-gray/30 bg-cream px-3 py-2 text-sm"
+                      value={form.name}
+                      onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+                      placeholder="Nimi"
+                      required
+                    />
+                    <input
+                      className="border border-warm-gray/30 bg-cream px-3 py-2 text-sm"
+                      value={form.price}
+                      onChange={(e) => setForm((f) => ({ ...f, price: e.target.value }))}
+                      placeholder="Hind (nt 55)"
+                      required
+                    />
+                    <textarea
+                      className="md:col-span-3 border border-warm-gray/30 bg-cream px-3 py-2 text-sm"
+                      value={form.description}
+                      onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))}
+                      placeholder="Kirjeldus"
+                      rows={3}
+                    />
+                    <div className="md:col-span-3">
+                      <button
+                        disabled={busy}
+                        className="px-6 py-3 bg-rose text-cream text-xs tracking-[0.2em] uppercase font-medium hover:bg-dark transition-all duration-500 disabled:opacity-60"
+                        type="submit"
+                      >
+                        Salvesta
+                      </button>
+                    </div>
+                  </form>
+                </div>
+
+                <div>
+                  <h2 className="font-serif text-xl font-medium text-dark mb-4">Teenused</h2>
+                  {!grouped && <p className="text-sm text-warm-gray font-light">Laen...</p>}
+
+                  <div className="space-y-3">
+                    {rows.map((s) => (
+                      <div key={s.id} className="border border-warm-gray/30 bg-cream p-4">
+                        <div className="grid grid-cols-1 md:grid-cols-4 gap-2 items-center">
+                          <input
+                            className="border border-warm-gray/30 bg-ivory px-3 py-2 text-sm"
+                            defaultValue={s.category}
+                            onBlur={(e) => {
+                              const value = e.target.value
+                              if (value !== s.category) onQuickEdit(s.id, { category: value })
+                            }}
+                          />
+                          <input
+                            className="border border-warm-gray/30 bg-ivory px-3 py-2 text-sm"
+                            defaultValue={s.name}
+                            onBlur={(e) => {
+                              const value = e.target.value
+                              if (value !== s.name) onQuickEdit(s.id, { name: value })
+                            }}
+                          />
+                          <input
+                            className="border border-warm-gray/30 bg-ivory px-3 py-2 text-sm"
+                            defaultValue={String(s.price)}
+                            onBlur={(e) => {
+                              const value = Number(e.target.value)
+                              if (Number.isFinite(value) && value !== s.price) onQuickEdit(s.id, { price: value })
+                            }}
+                          />
+                          <div className="flex gap-2 justify-end">
+                            <button
+                              disabled={busy}
+                              className="px-4 py-2 border border-rose text-rose text-xs tracking-[0.15em] uppercase hover:bg-rose hover:text-cream transition disabled:opacity-60"
+                              onClick={() => onDelete(s.id)}
+                            >
+                              Kustuta
+                            </button>
+                          </div>
+                          <textarea
+                            className="md:col-span-4 border border-warm-gray/30 bg-ivory px-3 py-2 text-sm"
+                            defaultValue={s.description || ''}
+                            onBlur={(e) => {
+                              const value = e.target.value
+                              if (value !== (s.description || '')) onQuickEdit(s.id, { description: value })
+                            }}
+                            rows={3}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </FadeInView>
       </div>

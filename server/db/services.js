@@ -1,3 +1,4 @@
+/* global process */
 import Database from 'better-sqlite3'
 import fs from 'node:fs'
 import path from 'node:path'
@@ -5,15 +6,15 @@ import path from 'node:path'
 const DEFAULT_DB_PATH = path.join(process.cwd(), 'server', 'db', 'database.db')
 
 const SEED_SERVICES = [
-  { category: 'Jumestus', name: 'Pruudimeik', price: 75, sort_order: 1 },
-  { category: 'Jumestus', name: 'Fantaasiameik', price: 60, sort_order: 2 },
-  { category: 'Jumestus', name: 'Pruudi proovimeik', price: 55, sort_order: 3 },
-  { category: 'Jumestus', name: 'Pidulik jumestus', price: 55, sort_order: 4 },
-  { category: 'Jumestus', name: 'Fotomeik', price: 50, sort_order: 5 },
+  { category: 'Jumestus', name: 'Pruudimeik', description: '', price: 75, sort_order: 1 },
+  { category: 'Jumestus', name: 'Fantaasiameik', description: '', price: 60, sort_order: 2 },
+  { category: 'Jumestus', name: 'Pruudi proovimeik', description: '', price: 55, sort_order: 3 },
+  { category: 'Jumestus', name: 'Pidulik jumestus', description: '', price: 55, sort_order: 4 },
+  { category: 'Jumestus', name: 'Fotomeik', description: '', price: 50, sort_order: 5 },
 
-  { category: 'Soengud', name: 'Pruudisoeng', price: 55, sort_order: 1 },
-  { category: 'Soengud', name: 'Pruudi proovisoeng', price: 45, sort_order: 2 },
-  { category: 'Soengud', name: 'Soengud', price: 40, sort_order: 3 }
+  { category: 'Soengud', name: 'Pruudisoeng', description: '', price: 55, sort_order: 1 },
+  { category: 'Soengud', name: 'Pruudi proovisoeng', description: '', price: 45, sort_order: 2 },
+  { category: 'Soengud', name: 'Soengud', description: '', price: 40, sort_order: 3 }
 ]
 
 let db
@@ -37,6 +38,7 @@ export function getDb() {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       category TEXT NOT NULL,
       name TEXT NOT NULL,
+  description TEXT NOT NULL DEFAULT '',
       price REAL NOT NULL,
       sort_order INTEGER NOT NULL DEFAULT 0
     );
@@ -54,7 +56,7 @@ function seedIfEmpty(dbInstance) {
   if (row?.count > 0) return
 
   const insert = dbInstance.prepare(
-    'INSERT INTO services (category, name, price, sort_order) VALUES (@category, @name, @price, @sort_order)'
+  'INSERT INTO services (category, name, description, price, sort_order) VALUES (@category, @name, @description, @price, @sort_order)'
   )
 
   const tx = dbInstance.transaction((items) => {
@@ -67,13 +69,13 @@ function seedIfEmpty(dbInstance) {
 export function listServicesGrouped() {
   const rows = getDb()
     .prepare(
-      `SELECT id, category, name, price, sort_order
+  `SELECT id, category, name, description, price, sort_order
        FROM services
        ORDER BY category ASC, sort_order ASC, id ASC`
     )
     .all()
 
-  /** @type {Record<string, Array<{id:number,category:string,name:string,price:number,sort_order:number}>>} */
+  /** @type {Record<string, Array<{id:number,category:string,name:string,description:string,price:number,sort_order:number}>>} */
   const grouped = {}
   for (const row of rows) {
     if (!grouped[row.category]) grouped[row.category] = []
@@ -83,21 +85,23 @@ export function listServicesGrouped() {
   return grouped
 }
 
-export function createService({ category, name, price, sort_order }) {
+export function createService({ category, name, description, price, sort_order }) {
   const stmt = getDb().prepare(
-    `INSERT INTO services (category, name, price, sort_order)
-     VALUES (@category, @name, @price, COALESCE(@sort_order, 0))`
+    `INSERT INTO services (category, name, description, price, sort_order)
+     VALUES (@category, @name, COALESCE(@description, ''), @price, COALESCE(@sort_order, 0))`
   )
 
-  const info = stmt.run({ category, name, price, sort_order })
-  return getDb().prepare('SELECT id, category, name, price, sort_order FROM services WHERE id = ?').get(info.lastInsertRowid)
+  const info = stmt.run({ category, name, description, price, sort_order })
+  return getDb()
+    .prepare('SELECT id, category, name, description, price, sort_order FROM services WHERE id = ?')
+    .get(info.lastInsertRowid)
 }
 
 export function updateService(id, patch) {
   const fields = []
   const params = { id }
 
-  for (const key of ['category', 'name', 'price', 'sort_order']) {
+  for (const key of ['category', 'name', 'description', 'price', 'sort_order']) {
     if (patch[key] !== undefined) {
       fields.push(`${key} = @${key}`)
       params[key] = patch[key]
@@ -105,11 +109,11 @@ export function updateService(id, patch) {
   }
 
   if (fields.length === 0) {
-    return getDb().prepare('SELECT id, category, name, price, sort_order FROM services WHERE id = ?').get(id)
+    return getDb().prepare('SELECT id, category, name, description, price, sort_order FROM services WHERE id = ?').get(id)
   }
 
   getDb().prepare(`UPDATE services SET ${fields.join(', ')} WHERE id = @id`).run(params)
-  return getDb().prepare('SELECT id, category, name, price, sort_order FROM services WHERE id = ?').get(id)
+  return getDb().prepare('SELECT id, category, name, description, price, sort_order FROM services WHERE id = ?').get(id)
 }
 
 export function deleteService(id) {

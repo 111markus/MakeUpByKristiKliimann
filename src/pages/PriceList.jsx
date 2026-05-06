@@ -123,6 +123,11 @@ export default function PriceList() {
                               className="overflow-hidden"
                             >
                               <div className="px-0 py-4">
+                                {service.description ? (
+                                  <p className="text-warm-gray font-light leading-relaxed text-base mb-2 whitespace-pre-line">
+                                    {service.description}
+                                  </p>
+                                ) : null}
                                 <p className="text-warm-gray font-light leading-relaxed text-base">
                                   Hind: {service.price}€
                                 </p>

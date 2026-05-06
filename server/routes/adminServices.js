@@ -1,13 +1,13 @@
 import { Router } from 'express'
-import requireAdmin from '../middleware/requireAdmin.js'
+import requireAdminSession from '../middleware/requireAdminSession.js'
 import { createService, updateService, deleteService } from '../db/services.js'
 
 const router = Router()
 
-router.use(requireAdmin)
+router.use(requireAdminSession)
 
 router.post('/services', (req, res) => {
-  const { category, name, price, sort_order } = req.body || {}
+  const { category, name, description, price, sort_order } = req.body || {}
   if (!category || !name || price === undefined || price === null) {
     return res.status(400).json({ error: 'category, name and price are required' })
   }
@@ -20,6 +20,7 @@ router.post('/services', (req, res) => {
   const created = createService({
     category: String(category).trim(),
     name: String(name).trim(),
+  description: description === undefined || description === null ? '' : String(description),
     price: parsedPrice,
     sort_order: sort_order === undefined ? 0 : Number(sort_order)
   })
@@ -36,6 +37,9 @@ router.patch('/services/:id', (req, res) => {
     const parsedPrice = Number(patch.price)
     if (!Number.isFinite(parsedPrice)) return res.status(400).json({ error: 'price must be a number' })
     patch.price = parsedPrice
+  }
+  if (patch.description !== undefined && patch.description !== null) {
+    patch.description = String(patch.description)
   }
   if (patch.sort_order !== undefined) {
     const parsed = Number(patch.sort_order)

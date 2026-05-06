@@ -12,9 +12,11 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.0",
+    "bcryptjs": "^3.0.3",
     "better-sqlite3": "^12.9.0",
     "cors": "^2.8.6",
     "express": "^4.22.1",
+    "express-session": "^1.19.0",
     "framer-motion": "^12.34.2",
     "lucide-react": "^0.574.0",
     "react": "^19.2.0",

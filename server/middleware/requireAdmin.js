@@ -1,3 +1,4 @@
+/* global process, Buffer */
 import crypto from 'node:crypto'
 
 function timingSafeEqual(a, b) {
