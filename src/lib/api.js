@@ -1,8 +1,19 @@
-const API_BASE = (import.meta.env?.VITE_API_BASE_URL || '').replace(/\/$/, '')
+const API_BASE = String(import.meta.env?.VITE_API_BASE_URL || '')
+  .trim()
+  .replace(/\/$/, '')
 
 function url(path) {
-  if (!API_BASE) return path
-  return `${API_BASE}${path}`
+  const p = String(path || '')
+  if (!p.startsWith('/')) throw new Error(`Invalid API path: ${p}`)
+
+  // Allow passing a full URL as VITE_API_BASE_URL (e.g. https://...)
+  // or leaving it empty for same-origin.
+  if (!API_BASE) return p
+
+  // Ensure API_BASE itself is a valid absolute URL.
+  // new URL() will throw with "The string did not match the expected pattern." if invalid.
+  const base = new URL(API_BASE)
+  return new URL(p, base).toString()
 }
 
 export async function getServices() {
