@@ -90,7 +90,7 @@ Kasutajanimi: kristi
 Parool: kristi2026
 ```
 
-Production keskkonnas peab parool olema seadistatud `ADMIN_PASSWORD_HASH` muutujaga. Kui seda ei ole, tagastab login `500`, sest productionis ei kasutata vaikimisi parooli.
+Production keskkonnas peab parool olema seadistatud kas `ADMIN_PASSWORD` või `ADMIN_PASSWORD_HASH` muutujaga. Kui kumbagi ei ole, tagastab login `500`, sest productionis ei kasutata vaikimisi parooli.
 
 ## Keskkonnamuutujad
 
@@ -101,7 +101,8 @@ PORT                 Render määrab selle automaatselt
 NODE_ENV             Renderis production
 SESSION_SECRET       kohustuslik productionis
 ADMIN_USERNAME       admin kasutajanimi, vaikimisi kristi
-ADMIN_PASSWORD_HASH  bcrypt hash admin paroolist, kohustuslik productionis
+ADMIN_PASSWORD       admin parool Renderi secret env muutujana
+ADMIN_PASSWORD_HASH  bcrypt hash admin paroolist, turvalisem alternatiiv
 ALLOWED_ORIGINS      lubatud frontend domeenid CORS-i jaoks
 DB_PATH              SQLite andmebaasi asukoht
 ```
@@ -120,7 +121,7 @@ Parooli hashi saad genereerida näiteks nii:
 node -e "import('bcryptjs').then(async bcrypt => console.log(await bcrypt.hash('SINU_PAROOL', 12)))"
 ```
 
-Seejärel pane saadud väärtus Renderis `ADMIN_PASSWORD_HASH` muutujaks.
+Seejärel pane saadud väärtus Renderis `ADMIN_PASSWORD_HASH` muutujaks. Lihtsam variant on kasutada Renderis `ADMIN_PASSWORD` muutujat ja panna sinna valitud tugev parool.
 
 ## Production build
 
@@ -161,10 +162,12 @@ Renderi environment variables:
 NODE_VERSION=22
 SESSION_SECRET=pikk-random-secret
 ADMIN_USERNAME=kristi
-ADMIN_PASSWORD_HASH=<bcrypt hash>
+ADMIN_PASSWORD=<vali tugev parool>
 ALLOWED_ORIGINS=https://sinu-service.onrender.com
 DB_PATH=/var/data/database.db
 ```
+
+Soovi korral võid `ADMIN_PASSWORD` asemel kasutada `ADMIN_PASSWORD_HASH` väärtust. See on parem variant siis, kui ei taha parooli plaintext kujul env muutujasse panna.
 
 Kui lisad custom domeeni, lisa see samuti `ALLOWED_ORIGINS` sisse komaga eraldatult:
 

@@ -11,9 +11,10 @@ router.post('/login', async (req, res) => {
 
   const expectedUsername = process.env.ADMIN_USERNAME || devUsername
   const expectedPasswordHash = process.env.ADMIN_PASSWORD_HASH
+  const expectedPassword = process.env.ADMIN_PASSWORD
 
-  if (!expectedPasswordHash && process.env.NODE_ENV === 'production') {
-    return res.status(500).json({ error: 'ADMIN_PASSWORD_HASH is not configured' })
+  if (!expectedPasswordHash && !expectedPassword && process.env.NODE_ENV === 'production') {
+    return res.status(500).json({ error: 'ADMIN_PASSWORD or ADMIN_PASSWORD_HASH is not configured' })
   }
 
   if (!username || !password) {
@@ -26,7 +27,7 @@ router.post('/login', async (req, res) => {
 
   const ok = expectedPasswordHash
     ? await bcrypt.compare(String(password), expectedPasswordHash)
-    : String(password) === devPassword
+    : String(password) === (expectedPassword || devPassword)
   if (!ok) {
     return res.status(401).json({ error: 'Invalid credentials' })
   }
