@@ -7,9 +7,17 @@ const router = Router()
 router.use(requireAdminSession)
 
 router.post('/services', (req, res) => {
-  const { category, name, description, price, sort_order } = req.body || {}
+  const { category, name, description, duration_minutes, price, sort_order } = req.body || {}
   if (!category || !name || price === undefined || price === null) {
     return res.status(400).json({ error: 'category, name and price are required' })
+  }
+
+  let parsedDuration = null
+  if (duration_minutes !== undefined && duration_minutes !== null && duration_minutes !== '') {
+    parsedDuration = Number(duration_minutes)
+    if (!Number.isInteger(parsedDuration) || parsedDuration < 0) {
+      return res.status(400).json({ error: 'duration_minutes must be a non-negative integer' })
+    }
   }
 
   const parsedPrice = Number(price)
@@ -21,6 +29,7 @@ router.post('/services', (req, res) => {
     category: String(category).trim(),
     name: String(name).trim(),
   description: description === undefined || description === null ? '' : String(description),
+  duration_minutes: parsedDuration,
     price: parsedPrice,
     sort_order: sort_order === undefined ? 0 : Number(sort_order)
   })
@@ -40,6 +49,17 @@ router.patch('/services/:id', (req, res) => {
   }
   if (patch.description !== undefined && patch.description !== null) {
     patch.description = String(patch.description)
+  }
+  if (patch.duration_minutes !== undefined) {
+    if (patch.duration_minutes === null || patch.duration_minutes === '') {
+      patch.duration_minutes = null
+    } else {
+      const parsed = Number(patch.duration_minutes)
+      if (!Number.isInteger(parsed) || parsed < 0) {
+        return res.status(400).json({ error: 'duration_minutes must be a non-negative integer' })
+      }
+      patch.duration_minutes = parsed
+    }
   }
   if (patch.sort_order !== undefined) {
     const parsed = Number(patch.sort_order)

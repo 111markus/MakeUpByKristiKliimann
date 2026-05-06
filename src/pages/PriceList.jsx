@@ -39,6 +39,12 @@ export default function PriceList() {
     setExpandedIndex(expandedIndex === key ? null : key)
   }
 
+  const formatDuration = (minutes) => {
+    const n = Number(minutes)
+    if (!Number.isFinite(n) || !Number.isInteger(n) || n <= 0) return ''
+    return ` ${n}min`
+  }
+
   return (
     <>
       {/* ===== HERO ===== */}
@@ -99,7 +105,9 @@ export default function PriceList() {
                             <div className="flex-1 text-left">
                               <div className="flex items-baseline justify-between gap-4">
                                 <h3 className="font-light text-lg md:text-xl text-dark">{service.name}</h3>
-                                <span className="font-light text-lg md:text-xl text-dark">{service.price}€</span>
+                                <span className="font-light text-lg md:text-xl text-dark">
+                                  {service.price}€{formatDuration(service.duration_minutes)}
+                                </span>
                               </div>
                             </div>
                             <motion.div
@@ -129,7 +137,7 @@ export default function PriceList() {
                                   </p>
                                 ) : null}
                                 <p className="text-warm-gray font-light leading-relaxed text-base">
-                                  Hind: {service.price}€
+                                  Hind: {service.price}€{formatDuration(service.duration_minutes)}
                                 </p>
                               </div>
                             </motion.div>
@@ -142,14 +150,13 @@ export default function PriceList() {
                         * Teenuse lõplik hind võib varieeruda vastavalt töömahule. Lisad (sh kunstripsmed) ei kuulu hinna sisse.
                       </p>
                     )}
-                    {categoryIndex === 1 && (
-                      <p className="text-xs text-warm-gray font-light mt-6">
-                        * Teenuse lõplik hind võib varieeruda vastavalt töömahule, juuste paksusele ja pikkusele.
-                      </p>
-                    )}
                   </div>
                 ))}
               </div>
+
+              <p className="text-xs text-warm-gray font-light mt-10">
+                * Teenuse lõplik hind võib varieeruda vastavalt töömahule, juuste paksusele ja pikkusele.
+              </p>
             </div>
           </FadeInView>
         </div>

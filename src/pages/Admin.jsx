@@ -28,7 +28,7 @@ export default function Admin() {
 
   const rows = useMemo(() => flatten(grouped), [grouped])
 
-  const [form, setForm] = useState({ category: 'Jumestus', name: '', description: '', price: '' })
+  const [form, setForm] = useState({ category: 'Jumestus', name: '', description: '', duration_minutes: '', price: '' })
 
   const refreshSession = async () => {
     const s = await authMe()
@@ -90,9 +90,10 @@ export default function Admin() {
         category: form.category,
         name: form.name,
         description: form.description,
+        duration_minutes: form.duration_minutes === '' ? null : Number(form.duration_minutes),
         price: Number(form.price)
       })
-      setForm((f) => ({ ...f, name: '', description: '', price: '' }))
+      setForm((f) => ({ ...f, name: '', description: '', duration_minutes: '', price: '' }))
       await refresh()
     } catch (err) {
       setError(err)
@@ -189,7 +190,7 @@ export default function Admin() {
               <>
                 <div className="mb-10">
                   <h2 className="font-serif text-xl font-medium text-dark mb-4">Lisa teenus</h2>
-                  <form onSubmit={onCreate} className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  <form onSubmit={onCreate} className="grid grid-cols-1 md:grid-cols-4 gap-3">
                     <input
                       className="border border-warm-gray/30 bg-cream px-3 py-2 text-sm"
                       value={form.category}
@@ -210,14 +211,20 @@ export default function Admin() {
                       placeholder="Hind (nt 55)"
                       required
                     />
+                    <input
+                      className="border border-warm-gray/30 bg-cream px-3 py-2 text-sm"
+                      value={form.duration_minutes}
+                      onChange={(e) => setForm((f) => ({ ...f, duration_minutes: e.target.value }))}
+                      placeholder="Ajakulu (min)"
+                    />
                     <textarea
-                      className="md:col-span-3 border border-warm-gray/30 bg-cream px-3 py-2 text-sm"
+                      className="md:col-span-4 border border-warm-gray/30 bg-cream px-3 py-2 text-sm"
                       value={form.description}
                       onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))}
                       placeholder="Kirjeldus"
                       rows={3}
                     />
-                    <div className="md:col-span-3">
+                    <div className="md:col-span-4">
                       <button
                         disabled={busy}
                         className="px-6 py-3 bg-rose text-cream text-xs tracking-[0.2em] uppercase font-medium hover:bg-dark transition-all duration-500 disabled:opacity-60"
@@ -236,7 +243,7 @@ export default function Admin() {
                   <div className="space-y-3">
                     {rows.map((s) => (
                       <div key={s.id} className="border border-warm-gray/30 bg-cream p-4">
-                        <div className="grid grid-cols-1 md:grid-cols-4 gap-2 items-center">
+                        <div className="grid grid-cols-1 md:grid-cols-5 gap-2 items-center">
                           <input
                             className="border border-warm-gray/30 bg-ivory px-3 py-2 text-sm"
                             defaultValue={s.category}
@@ -261,6 +268,22 @@ export default function Admin() {
                               if (Number.isFinite(value) && value !== s.price) onQuickEdit(s.id, { price: value })
                             }}
                           />
+                          <input
+                            className="border border-warm-gray/30 bg-ivory px-3 py-2 text-sm"
+                            defaultValue={s.duration_minutes === null || s.duration_minutes === undefined ? '' : String(s.duration_minutes)}
+                            placeholder="min"
+                            onBlur={(e) => {
+                              const raw = e.target.value
+                              if (raw === '') {
+                                if (s.duration_minutes !== null && s.duration_minutes !== undefined) onQuickEdit(s.id, { duration_minutes: null })
+                                return
+                              }
+                              const value = Number(raw)
+                              if (Number.isInteger(value) && value >= 0 && value !== s.duration_minutes) {
+                                onQuickEdit(s.id, { duration_minutes: value })
+                              }
+                            }}
+                          />
                           <div className="flex gap-2 justify-end">
                             <button
                               disabled={busy}
@@ -271,7 +294,7 @@ export default function Admin() {
                             </button>
                           </div>
                           <textarea
-                            className="md:col-span-4 border border-warm-gray/30 bg-ivory px-3 py-2 text-sm"
+                            className="md:col-span-5 border border-warm-gray/30 bg-ivory px-3 py-2 text-sm"
                             defaultValue={s.description || ''}
                             onBlur={(e) => {
                               const value = e.target.value
