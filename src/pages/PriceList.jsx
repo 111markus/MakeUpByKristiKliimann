@@ -41,8 +41,8 @@ export default function PriceList() {
 
   const formatDuration = (minutes) => {
     const n = Number(minutes)
-    if (!Number.isFinite(n) || !Number.isInteger(n) || n <= 0) return ''
-    return ` ${n}min`
+    if (!Number.isFinite(n) || !Number.isInteger(n) || n <= 0) return null
+    return `${n} min`
   }
 
   return (
@@ -106,7 +106,7 @@ export default function PriceList() {
                               <div className="flex items-baseline justify-between gap-4">
                                 <h3 className="font-light text-lg md:text-xl text-dark">{service.name}</h3>
                                 <span className="font-light text-lg md:text-xl text-dark">
-                                  {service.price}€{formatDuration(service.duration_minutes)}
+                                  {service.price}€
                                 </span>
                               </div>
                             </div>
@@ -131,14 +131,16 @@ export default function PriceList() {
                               className="overflow-hidden"
                             >
                               <div className="px-0 py-4">
+                                {formatDuration(service.duration_minutes) ? (
+                                  <p className="text-warm-gray font-light leading-relaxed text-base mb-2">
+                                    Aeg: {formatDuration(service.duration_minutes)}
+                                  </p>
+                                ) : null}
                                 {service.description ? (
                                   <p className="text-warm-gray font-light leading-relaxed text-base mb-2 whitespace-pre-line">
                                     {service.description}
                                   </p>
                                 ) : null}
-                                <p className="text-warm-gray font-light leading-relaxed text-base">
-                                  Hind: {service.price}€{formatDuration(service.duration_minutes)}
-                                </p>
                               </div>
                             </motion.div>
                           )}
