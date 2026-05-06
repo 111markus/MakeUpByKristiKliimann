@@ -90,39 +90,6 @@ Kasutajanimi: kristi
 Parool: kristi2026
 ```
 
-Production keskkonnas peab parool olema seadistatud kas `ADMIN_PASSWORD` või `ADMIN_PASSWORD_HASH` muutujaga. Kui kumbagi ei ole, tagastab login `500`, sest productionis ei kasutata vaikimisi parooli.
-
-## Keskkonnamuutujad
-
-Olulisemad muutujad:
-
-```text
-PORT                 Render määrab selle automaatselt
-NODE_ENV             Renderis production
-SESSION_SECRET       kohustuslik productionis
-ADMIN_USERNAME       admin kasutajanimi, vaikimisi kristi
-ADMIN_PASSWORD       admin parool Renderi secret env muutujana
-ADMIN_PASSWORD_HASH  bcrypt hash admin paroolist, turvalisem alternatiiv
-ALLOWED_ORIGINS      lubatud frontend domeenid CORS-i jaoks
-DB_PATH              SQLite andmebaasi asukoht
-```
-
-Näide lokaalseks `.env` failiks:
-
-```text
-SESSION_SECRET=local-dev-secret
-ADMIN_USERNAME=kristi
-DB_PATH=server/db/database.db
-```
-
-Parooli hashi saad genereerida näiteks nii:
-
-```bash
-node -e "import('bcryptjs').then(async bcrypt => console.log(await bcrypt.hash('SINU_PAROOL', 12)))"
-```
-
-Seejärel pane saadud väärtus Renderis `ADMIN_PASSWORD_HASH` muutujaks. Lihtsam variant on kasutada Renderis `ADMIN_PASSWORD` muutujat ja panna sinna valitud tugev parool.
-
 ## Production build
 
 Buildi frontend:
