@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion'
 
+const MotionDiv = motion.div
+
 export default function SectionHeading({ subtitle, title, description, light = false }) {
   return (
-    <motion.div
+    <MotionDiv
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
@@ -23,6 +25,6 @@ export default function SectionHeading({ subtitle, title, description, light = f
         </p>
       )}
       <div className={`w-16 h-[1px] mx-auto mt-6 ${light ? 'bg-rose' : 'bg-rose'}`} />
-    </motion.div>
+    </MotionDiv>
   )
 }

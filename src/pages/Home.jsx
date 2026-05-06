@@ -1,11 +1,18 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowRight, Sparkles, Heart, Star, Camera, Crown, Gift, Wand2, Zap, ChevronLeft, ChevronRight } from 'lucide-react'
-import { useState, useRef } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import SectionHeading from '../components/SectionHeading'
 import FadeInView from '../components/FadeInView'
+import { getHomeServices } from '../lib/api'
 
-const services = [
+const MotionDiv = motion.div
+const MotionH1 = motion.h1
+const MotionP = motion.p
+
+const iconMap = { Camera, Crown, Gift, Heart, Sparkles, Star, Wand2, Zap }
+
+const fallbackServices = [
   {
     icon: <Crown size={28} />,
     title: 'Pruudimeik',
@@ -136,6 +143,7 @@ const testimonials = [
 
 export default function Home() {
   const [currentReview, setCurrentReview] = useState(2)
+  const [services, setServices] = useState(fallbackServices)
   const reviewsRef = useRef(null)
   const itemsPerSlide = 3
   const totalSlides = Math.ceil(testimonials.length / itemsPerSlide)
@@ -160,6 +168,20 @@ export default function Home() {
     const startIdx = currentReview * itemsPerSlide
     return testimonials.slice(startIdx, startIdx + itemsPerSlide)
   }
+
+  useEffect(() => {
+    let cancelled = false
+    getHomeServices()
+      .then((data) => {
+        if (!cancelled && Array.isArray(data) && data.length) setServices(data)
+      })
+      .catch(() => {})
+
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
   return (
     <>
       {/* ===== HERO ===== */}
@@ -182,16 +204,16 @@ export default function Home() {
 
         {/* Content */}
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 text-center">
-          <motion.p
+          <MotionP
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
             className="text-cream/70 text-xs tracking-[0.4em] uppercase mb-6"
           >
             Kristi Kliimann · Professionaalne Jumestaja
-          </motion.p>
+          </MotionP>
 
-          <motion.h1
+          <MotionH1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.5 }}
@@ -200,9 +222,9 @@ export default function Home() {
             Professionaalne jumestus
             <br />
             <span className="italic text-blush">Sinu erilisteks hetkedeks</span>
-          </motion.h1>
+          </MotionH1>
 
-          <motion.p
+          <MotionP
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
@@ -210,9 +232,9 @@ export default function Home() {
           >
             Iga nägu on kunstiteos. Lasen sinu loomulikul ilul särada –
             olgu see pulmapäev, fotosessioon või eriline õhtu.
-          </motion.p>
+          </MotionP>
 
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.1 }}
@@ -222,18 +244,18 @@ export default function Home() {
               href="https://kristikliimannbeauty.setmore.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="group px-10 py-4 bg-cream text-dark text-xs tracking-[0.2em] uppercase font-medium hover:bg-rose hover:text-cream transition-all duration-500 flex items-center gap-3"
+              className="group w-full max-w-xs sm:w-auto px-10 py-4 bg-cream text-dark text-xs tracking-[0.2em] uppercase font-medium hover:bg-rose hover:text-cream transition-all duration-500 flex items-center justify-center gap-3"
             >
               Broneeri aeg
               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
             </a>
             <Link
               to="/hinnakiri"
-              className="px-10 py-4 border border-cream/30 text-cream text-xs tracking-[0.2em] uppercase font-medium hover:bg-cream/10 transition-all duration-500"
+              className="w-full max-w-xs sm:w-auto px-10 py-4 border border-cream/30 text-cream text-center text-xs tracking-[0.2em] uppercase font-medium hover:bg-cream/10 transition-all duration-500"
             >
               Hinnakiri
             </Link>
-          </motion.div>
+          </MotionDiv>
         </div>
       </section>
 
@@ -295,7 +317,7 @@ export default function Home() {
             {/* Carousel Content - 3 items */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
               {getVisibleTestimonials().map((t) => (
-                <motion.div
+                <MotionDiv
                   key={t.name}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -315,7 +337,7 @@ export default function Home() {
                   <div>
                     <p className="text-cream font-serif text-base">{t.name}</p>
                   </div>
-                </motion.div>
+                </MotionDiv>
               ))}
             </div>
 
@@ -374,7 +396,10 @@ export default function Home() {
                 <div className={`group bg-cream p-6 lg:p-8 text-center hover:shadow-xl transition-all duration-500 h-full flex flex-col items-center justify-between min-h-56 ${i === services.length - 1 ? 'lg:col-start-2 lg:col-span-2' : ''}`}>
                   <div className="flex-1 flex flex-col items-center justify-start">
                     <div className="text-rose mb-6 flex justify-center group-hover:scale-125 transition-transform duration-300">
-                      {service.icon}
+                      {typeof service.icon === 'string' ? (() => {
+                        const Icon = iconMap[service.icon] || Sparkles
+                        return <Icon size={28} />
+                      })() : service.icon}
                     </div>
                     <h3 className="font-serif text-2xl lg:text-3xl font-medium text-dark">
                       {service.title}
@@ -384,9 +409,10 @@ export default function Home() {
                     <p className="text-xs text-rose font-light">alates</p>
                     <p className="text-4xl lg:text-5xl font-semibold text-rose">
                       {service.price}
+                      {typeof service.price === 'number' ? ' €' : ''}
                     </p>
                     <p className="text-base lg:text-lg text-warm-gray font-light">
-                      {service.time}
+                      {service.duration_minutes ? `${service.duration_minutes} min` : service.time}
                     </p>
                   </div>
                 </div>
@@ -395,16 +421,22 @@ export default function Home() {
           </div>
 
           <FadeInView delay={0.4}>
-            <div className="text-center mt-20 mb-2">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-20 mb-2">
               <a
                 href="https://kristikliimannbeauty.setmore.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 px-10 py-4 bg-dark text-cream text-xs tracking-[0.2em] uppercase font-medium hover:bg-charcoal transition-all duration-500"
+                className="group w-full max-w-xs sm:w-auto px-10 py-4 bg-rose text-cream text-xs tracking-[0.2em] uppercase font-medium hover:bg-dark transition-all duration-500 flex items-center justify-center gap-3"
               >
                 Broneeri aeg
-                <ArrowRight size={16} />
+                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
               </a>
+              <Link
+                to="/hinnakiri"
+                className="w-full max-w-xs sm:w-auto px-10 py-4 border border-dark/30 text-dark text-center text-xs tracking-[0.2em] uppercase font-medium hover:bg-dark hover:border-dark hover:text-cream transition-all duration-500"
+              >
+                Hinnakiri
+              </Link>
             </div>
           </FadeInView>
         </div>

@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion'
 
+const MotionDiv = motion.div
+
 export default function FadeInView({ children, delay = 0, direction = 'up', className = '' }) {
   const directions = {
     up: { y: 40, x: 0 },
@@ -9,7 +11,7 @@ export default function FadeInView({ children, delay = 0, direction = 'up', clas
   }
 
   return (
-    <motion.div
+    <MotionDiv
       initial={{ opacity: 0, ...directions[direction] }}
       whileInView={{ opacity: 1, x: 0, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
@@ -17,6 +19,6 @@ export default function FadeInView({ children, delay = 0, direction = 'up', clas
       className={className}
     >
       {children}
-    </motion.div>
+    </MotionDiv>
   )
 }

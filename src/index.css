@@ -99,6 +99,41 @@
   }
 }
 
+/* ===== Admin responsive controls ===== */
+.admin-panel input,
+.admin-panel select,
+.admin-panel textarea {
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
+}
+
+.admin-panel .flex-1 {
+  min-width: 0;
+}
+
+.admin-panel .flex-wrap > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.admin-panel .flex-wrap span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 639px) {
+  .admin-panel form button[type="submit"] {
+    width: 100%;
+  }
+
+  .admin-panel textarea {
+    resize: vertical;
+  }
+}
+
 
 
 /* ===== Initial loading overlay ===== */

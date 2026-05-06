@@ -3,6 +3,8 @@ import { motion } from 'framer-motion'
 import SectionHeading from '../components/SectionHeading'
 import FadeInView from '../components/FadeInView'
 
+const MotionH1 = motion.h1
+
 const contactInfo = [
   {
     icon: <Phone size={20} />,
@@ -54,14 +56,14 @@ export default function Contact() {
           />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 text-center flex flex-col items-center justify-center">
-          <motion.h1
+          <MotionH1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.3 }}
             className="font-serif text-4xl md:text-5xl lg:text-6xl text-dark font-medium leading-tight"
           >
             Kontakt
-          </motion.h1>
+          </MotionH1>
         </div>
       </section>
 
@@ -145,7 +147,7 @@ export default function Contact() {
               href="https://kristikliimannbeauty.setmore.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block px-10 py-4 bg-dark text-cream text-xs tracking-[0.2em] uppercase font-medium hover:bg-charcoal transition-all duration-500"
+              className="inline-block w-full max-w-xs px-10 py-4 bg-dark text-cream text-center text-xs tracking-[0.2em] uppercase font-medium hover:bg-charcoal transition-all duration-500 sm:w-auto"
             >
               Broneeri aeg
             </a>

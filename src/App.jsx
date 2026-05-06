@@ -1,5 +1,5 @@
-import { Routes, Route, useLocation } from 'react-router-dom'
-import { useEffect } from 'react'
+import { Navigate, Routes, Route, useLocation } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import LoadingOverlay from './components/LoadingOverlay'
@@ -8,6 +8,7 @@ import PriceList from './pages/PriceList'
 import Gallery from './pages/Gallery'
 import Contact from './pages/Contact'
 import Admin from './pages/Admin'
+import AdminHomeServices from './pages/AdminHomeServices'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -22,21 +23,27 @@ function ScrollToTop() {
 }
 
 function App() {
+  const [adminNavActions, setAdminNavActions] = useState(null)
+  const location = useLocation()
+  const isAdmin = location.pathname.startsWith('/admin')
+
   return (
     <div className="min-h-screen bg-cream">
       <LoadingOverlay />
       <ScrollToTop />
-      <Navbar />
+      <Navbar adminActions={adminNavActions} />
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/hinnakiri" element={<PriceList />} />
           <Route path="/galerii" element={<Gallery />} />
           <Route path="/kontakt" element={<Contact />} />
-          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin" element={<Navigate to="/admin/hinnakiri" replace />} />
+          <Route path="/admin/hinnakiri" element={<Admin setAdminNavActions={setAdminNavActions} />} />
+          <Route path="/admin/teenused" element={<AdminHomeServices setAdminNavActions={setAdminNavActions} />} />
         </Routes>
       </main>
-      <Footer />
+      {!isAdmin && <Footer />}
     </div>
   )
 }

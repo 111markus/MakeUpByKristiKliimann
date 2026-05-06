@@ -1,7 +1,12 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X } from 'lucide-react'
+import { ArrowRight, X } from 'lucide-react'
 import FadeInView from '../components/FadeInView'
+
+const MotionA = motion.a
+const MotionDiv = motion.div
+const MotionH1 = motion.h1
+const MotionImg = motion.img
 
 const galleryImages = [
   { id: 3, src: '/galerii pildid/Liis Vissel_(2).jpg', alt: 'Fotograaf: Liis Vissel', category: 'pulmad' },
@@ -66,19 +71,19 @@ export default function Gallery() {
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 text-center flex flex-col items-center justify-center">
-          <motion.h1
+          <MotionH1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.3 }}
             className="font-serif text-4xl md:text-5xl lg:text-6xl text-dark font-medium leading-tight"
           >
             Galerii
-          </motion.h1>
+          </MotionH1>
         </div>
       </section>
 
       {/* ===== GALLERY ===== */}
-      <section className="py-24 lg:py-32">
+      <section className="pt-24 lg:pt-32 pb-12 lg:pb-16">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           
           {/* Image Grid */}
@@ -117,10 +122,29 @@ export default function Gallery() {
         </div>
       </section>
 
+      <section className="pt-0 pb-12 lg:pb-16">
+        <div className="max-w-4xl mx-auto px-6 lg:px-12 text-center">
+          <FadeInView>
+            <MotionA
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              href="https://kristikliimannbeauty.setmore.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex w-full max-w-xs items-center justify-center gap-3 px-12 py-5 bg-rose text-cream text-xs tracking-[0.2em] uppercase font-medium hover:bg-dark transition-all duration-500 sm:w-auto"
+            >
+              Broneeri aeg
+              <ArrowRight size={16} />
+            </MotionA>
+          </FadeInView>
+        </div>
+      </section>
+
       {/* ===== LIGHTBOX ===== */}
       <AnimatePresence>
         {lightboxImage && (
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -135,7 +159,7 @@ export default function Gallery() {
             >
               <X size={32} />
             </button>
-            <motion.img
+            <MotionImg
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
@@ -152,7 +176,7 @@ export default function Gallery() {
                 transform: 'translate3d(0, 0, 0)',
               }}
             />
-          </motion.div>
+          </MotionDiv>
         )}
       </AnimatePresence>
     </>

@@ -76,7 +76,108 @@ export async function adminUpdateService(id, patch) {
 export async function adminDeleteService(id) {
   const res = await fetch(url(`/api/admin/services/${id}`), {
     method: 'DELETE',
-  credentials: 'include'
+    credentials: 'include'
   })
   if (!res.ok && res.status !== 204) throw new Error(`Failed to delete service: ${res.status}`)
+}
+
+export async function getCategoryDetails() {
+  const res = await fetch(url('/api/categories'), { credentials: 'include' })
+  if (!res.ok) throw new Error(`Failed to load categories: ${res.status}`)
+  return res.json()
+}
+
+export async function getHomeServices() {
+  const res = await fetch(url('/api/home-services'), { credentials: 'include' })
+  if (!res.ok) throw new Error(`Failed to load home services: ${res.status}`)
+  return res.json()
+}
+
+export async function adminReorderServices(items) {
+  const res = await fetch(url('/api/admin/services/reorder'), {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+    body: JSON.stringify({ items })
+  })
+  if (!res.ok) throw new Error(`Failed to reorder services: ${res.status}`)
+  return res.json()
+}
+
+export async function adminGetCategories() {
+  const res = await fetch(url('/api/admin/categories'), { credentials: 'include' })
+  if (!res.ok) throw new Error(`Failed to load categories: ${res.status}`)
+  return res.json()
+}
+
+export async function adminGetCategoryDetails() {
+  const res = await fetch(url('/api/admin/category-details'), { credentials: 'include' })
+  if (!res.ok) throw new Error(`Failed to load category details: ${res.status}`)
+  return res.json()
+}
+
+export async function adminCreateCategory(name) {
+  const res = await fetch(url('/api/admin/categories'), {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+    body: JSON.stringify({ name })
+  })
+  if (!res.ok) throw new Error(`Failed to create category: ${res.status}`)
+  return res.json()
+}
+
+export async function adminDeleteCategory(name) {
+  const res = await fetch(url(`/api/admin/categories/${encodeURIComponent(name)}`), {
+    method: 'DELETE',
+    credentials: 'include'
+  })
+  if (!res.ok && res.status !== 204) throw new Error(`Failed to delete category: ${res.status}`)
+}
+
+export async function adminUpdateCategoryNote(name, note) {
+  const res = await fetch(url(`/api/admin/categories/${encodeURIComponent(name)}/note`), {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+    body: JSON.stringify({ note })
+  })
+  if (!res.ok) throw new Error(`Failed to update category note: ${res.status}`)
+  return res.json()
+}
+
+export async function adminCreateHomeService(payload) {
+  const res = await fetch(url('/api/admin/home-services'), {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify(payload)
+  })
+  if (!res.ok) throw new Error(`Failed to create home service: ${res.status}`)
+  return res.json()
+}
+
+export async function adminUpdateHomeService(id, patch) {
+  const res = await fetch(url(`/api/admin/home-services/${id}`), {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify(patch)
+  })
+  if (!res.ok) throw new Error(`Failed to update home service: ${res.status}`)
+  return res.json()
+}
+
+export async function adminDeleteHomeService(id) {
+  const res = await fetch(url(`/api/admin/home-services/${id}`), {
+    method: 'DELETE',
+    credentials: 'include'
+  })
+  if (!res.ok && res.status !== 204) throw new Error(`Failed to delete home service: ${res.status}`)
 }

@@ -4,3 +4,7 @@ node_modules
 .DS_Store
 .env
 server/.env
+*.log
+server/db/*.db
+server/db/*.db-shm
+server/db/*.db-wal
