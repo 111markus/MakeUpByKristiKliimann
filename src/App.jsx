@@ -1,4 +1,4 @@
-import { Navigate, Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
@@ -39,7 +39,7 @@ function App() {
           <Route path="/galerii" element={<Gallery />} />
           <Route path="/kontakt" element={<Contact />} />
           <Route path="/admin" element={<Admin setAdminNavActions={setAdminNavActions} />} />
-          <Route path="/admin/hinnakiri" element={<Navigate to="/admin" replace />} />
+          <Route path="/admin/hinnakiri" element={<Admin setAdminNavActions={setAdminNavActions} />} />
           <Route path="/admin/teenused" element={<AdminHomeServices setAdminNavActions={setAdminNavActions} />} />
         </Routes>
       </main>

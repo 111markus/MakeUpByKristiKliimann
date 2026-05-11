@@ -159,7 +159,6 @@ export default function AdminHomeServices({ setAdminNavActions }) {
     } else {
       setAdminNavActions(null)
     }
-    return () => setAdminNavActions(null)
   }, [busy, saveDraft, onLogout, session?.loggedIn, session?.username, setAdminNavActions])
 
   const addItem = (e) => {

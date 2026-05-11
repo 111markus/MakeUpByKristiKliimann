@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import FadeInView from '../components/FadeInView'
 import {
   adminCreateCategory,
@@ -53,6 +54,8 @@ function autoScrollDuringDrag(e) {
 }
 
 export default function Admin({ setAdminNavActions }) {
+  const location = useLocation()
+  const navigate = useNavigate()
   const [session, setSession] = useState(null)
   const [grouped, setGrouped] = useState(null)
   const [error, setError] = useState(null)
@@ -107,6 +110,12 @@ export default function Admin({ setAdminNavActions }) {
     })()
   }, [])
 
+  useEffect(() => {
+    if (session?.loggedIn && location.pathname === '/admin') {
+      navigate('/admin/hinnakiri', { replace: true })
+    }
+  }, [location.pathname, navigate, session?.loggedIn])
+
   const onLogin = async (e) => {
     e.preventDefault()
     setError(null)
@@ -116,6 +125,9 @@ export default function Admin({ setAdminNavActions }) {
       const s = await refreshSession()
       if (s.loggedIn) await refresh()
       notify('Sisse logitud')
+      if (location.pathname === '/admin') {
+        navigate('/admin/hinnakiri', { replace: true })
+      }
     } catch (err) {
       setError(err)
     } finally {
@@ -205,7 +217,6 @@ export default function Admin({ setAdminNavActions }) {
       setAdminNavActions(null)
     }
 
-    return () => setAdminNavActions(null)
   }, [busy, onLogout, saveDraft, session?.loggedIn, session?.username, setAdminNavActions])
 
   const onCreate = (e) => {
