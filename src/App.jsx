@@ -38,8 +38,8 @@ function App() {
           <Route path="/hinnakiri" element={<PriceList />} />
           <Route path="/galerii" element={<Gallery />} />
           <Route path="/kontakt" element={<Contact />} />
-          <Route path="/admin" element={<Navigate to="/admin/hinnakiri" replace />} />
-          <Route path="/admin/hinnakiri" element={<Admin setAdminNavActions={setAdminNavActions} />} />
+          <Route path="/admin" element={<Admin setAdminNavActions={setAdminNavActions} />} />
+          <Route path="/admin/hinnakiri" element={<Navigate to="/admin" replace />} />
           <Route path="/admin/teenused" element={<AdminHomeServices setAdminNavActions={setAdminNavActions} />} />
         </Routes>
       </main>

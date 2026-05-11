@@ -11,7 +11,7 @@ const navLinks = [
 ]
 
 const adminLinks = [
-  { path: '/admin/hinnakiri', label: 'Hinnakiri' },
+  { path: '/admin', label: 'Hinnakiri' },
   { path: '/admin/teenused', label: 'Teenused' },
 ]
 
