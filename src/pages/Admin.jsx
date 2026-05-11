@@ -213,7 +213,7 @@ export default function Admin({ setAdminNavActions }) {
 
     if (session?.loggedIn) {
       setAdminNavActions({ busy, onSave: saveDraft, onLogout, username: session.username })
-    } else {
+    } else if (session?.loggedIn === false) {
       setAdminNavActions(null)
     }
 

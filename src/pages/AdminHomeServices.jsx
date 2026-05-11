@@ -156,7 +156,7 @@ export default function AdminHomeServices({ setAdminNavActions }) {
     if (!setAdminNavActions) return undefined
     if (session?.loggedIn) {
       setAdminNavActions({ busy, onSave: saveDraft, onLogout, username: session.username })
-    } else {
+    } else if (session?.loggedIn === false) {
       setAdminNavActions(null)
     }
   }, [busy, saveDraft, onLogout, session?.loggedIn, session?.username, setAdminNavActions])

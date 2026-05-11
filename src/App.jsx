@@ -27,6 +27,10 @@ function App() {
   const location = useLocation()
   const isAdmin = location.pathname.startsWith('/admin')
 
+  useEffect(() => {
+    if (!isAdmin) setAdminNavActions(null)
+  }, [isAdmin])
+
   return (
     <div className="min-h-screen bg-cream">
       <LoadingOverlay />
