@@ -260,17 +260,17 @@ export default function Home() {
       </section>
 
       {/* ===== ABOUT ===== */}
-      <section className="py-24 lg:py-32 bg-ivory">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
-            <FadeInView direction="left">
-              <div className="relative">
+      <section className="py-16 lg:py-20 bg-ivory">
+        <div className="max-w-[1360px] mx-auto px-6 lg:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.08fr_1fr] gap-12 lg:gap-16 items-stretch">
+            <FadeInView direction="left" className="h-full">
+              <div className="relative h-full">
                 <img
                   src="/Pilt_Kristi2.png"
                   alt="Kristi Kliimann profiilipilt"
                   width="800"
                   height="1067"
-                  className="w-full aspect-[3/4] object-cover"
+                  className="w-full aspect-[3/4] lg:aspect-auto lg:h-full lg:min-h-[760px] object-cover object-top"
                   loading="lazy"
                   decoding="async"
                 />
@@ -278,24 +278,33 @@ export default function Home() {
               </div>
             </FadeInView>
 
-            <FadeInView direction="right" delay={0.2}>
-              <div className="lg:pt-8">
-                <p className="text-xs tracking-[0.3em] uppercase text-soft-gray mb-4">Minust</p>
-                <h2 className="font-serif text-3xl md:text-4xl font-medium text-dark mb-8 leading-tight">
+            <FadeInView direction="right" delay={0.2} className="h-full">
+              <div className="h-full lg:flex lg:flex-col lg:justify-center">
+                <p className="text-xs tracking-[0.3em] uppercase text-soft-gray mb-3">Minust</p>
+                <h2 className="font-serif text-3xl md:text-[2.35rem] font-medium text-dark mb-6 leading-tight">
                   Ilu on minu kirg,
                   <br />
                   <span className="italic text-rose">jumestus on minu kunst</span>
                 </h2>
 
-                <div className="space-y-6 text-warm-gray font-light leading-relaxed text-lg md:text-xl text-justify">
+                <div className="space-y-4 text-warm-gray font-light leading-[1.65] text-sm md:text-[15px] xl:text-base text-left">
                   <p>
-                    Sinu ilu, minu kirg – juba 10 aastat.
+                    Tere! Mina olen Kristi - sinu teejuht ilumaailmas juba 10 aastat. Minu jaoks ei ole jumestus ja soengukunst lihtsalt töö, vaid elustiil, kirg ja eneseväljendusvorm. Usun siiralt, et iga naine on loomupäraselt ilus ning minu ülesanne on seda ilu professionaalsete tehnikate ja kunstilise silma abil esile tõsta.
                   </p>
                   <p>
-                    Usun südamest, et iga naine on ilus. Minu töö ei ole seda ilu luua, vaid see oskuslikult esile tuua. Kasutades vaid tipptasemel tooteid ja oma kümneaastast kogemustepagasit, loon Sulle meigi, mis ei pane Sind lihtsalt särama, vaid annab ka vankumatu enesekindluse.
+                    Aastate jooksul olen näinud tuhandeid naeratusi ja aidanud paljudel naistel särada nende elu tähtsaimatel hetkedel. Pikk kogemus on andnud mulle kindlustunde lahendada ka keerukamaid soove ning luua tulemuse, mis püsib ka varajaste hommikutundideni.
                   </p>
                   <p>
-                    Olgu tegu pulma, fotosessiooni või olulise peoga – minu eesmärk on, et peeglisse vaadates tunneksid Sa end ikka iseendana, kuid oma parimas ja lummavaimas versioonis. Sa väärid end tundma laitmatult.
+                    Vaatan igat klienti kui eraldi lugu. Olgu selleks õrn pruudimeik, julge fantaasiameik või moodne fotomeik - lähenen igale tööle kunstniku täpsuse ja kirega. Kuna valdan nii jumestus- kui ka soengukunsti, saan luua terviklahenduse, kus iga detail toetab ühist visiooni.
+                  </p>
+                  <p>
+                    Sa ei pea muretsema stiilide sobivuse pärast - minu juures kohtuvad visioon ja teostus ühes toolis. Kasutan oma töös ainult kvaliteetseid tooteid, mis aitavad tagada kauni, vastupidava ja enesekindlust loova tulemuse.
+                  </p>
+                  <p>
+                    Sinu hingerahu ja veatu välimus on minu prioriteet. Minu juurde on oodatud kõik, kes hindavad kvaliteeti, personaalsust ja sooja atmosfääri. Tule ja leiame koos sinu unikaalse sära!
+                  </p>
+                  <p className="font-serif text-xl md:text-2xl italic text-rose text-left">
+                    Sinu ilu, minu kunst.
                   </p>
                 </div>
               </div>
