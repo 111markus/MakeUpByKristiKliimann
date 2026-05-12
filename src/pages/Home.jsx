@@ -402,7 +402,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {services.map((service, i) => (
               <FadeInView key={service.title} delay={i * 0.1}>
-                <div className={`group bg-cream p-6 lg:p-8 text-center hover:shadow-xl transition-all duration-500 h-full flex flex-col items-center justify-between min-h-56 ${i === services.length - 1 ? 'lg:col-start-2 lg:col-span-2' : ''}`}>
+                <div className="group bg-cream p-6 lg:p-8 text-center hover:shadow-xl transition-all duration-500 h-full flex flex-col items-center justify-between min-h-56">
                   <div className="flex-1 flex flex-col items-center justify-start">
                     <div className="text-rose mb-6 flex justify-center group-hover:scale-125 transition-transform duration-300">
                       {typeof service.icon === 'string' ? (() => {

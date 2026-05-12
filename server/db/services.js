@@ -6,15 +6,78 @@ import path from 'node:path'
 const DEFAULT_DB_PATH = path.join(process.cwd(), 'server', 'db', 'database.db')
 
 const SEED_SERVICES = [
-  { category: 'Jumestus', name: 'Pruudimeik', description: 'Professionaalne ja kestev pruudimeik Sinu oluliseks päevaks vahemikus 75-80 eurot.\n', duration_minutes: 90, price: 75, sort_order: 1 },
-  { category: 'Jumestus', name: 'Fantaasiameik', description: 'Loominguline fantaasiameik alates 60 eurost.', duration_minutes: 90, price: 60, sort_order: 2 },
-  { category: 'Jumestus', name: 'Pidulik jumestus', description: 'Pidulik jumestus alates 60 eurost.', duration_minutes: 60, price: 55, sort_order: 3 },
-  { category: 'Jumestus', name: 'Pruudi proovimeik', description: 'Pidulik proovimeik alates 55 eurost.', duration_minutes: 90, price: 55, sort_order: 4 },
-  { category: 'Jumestus', name: 'Fotomeik', description: 'Professionaalne fotomeik 50 \u20ac ning püsiv lavameik 55 \u20ac, tagades korrektse ja silmapaistva välimuse igas olukorras.', duration_minutes: 60, price: 50, sort_order: 5 },
-
-  { category: 'Soengud', name: 'Pruudisoeng', description: 'Paku endale luksuslikku välimust: professionaalsed lokid, glamuursed lained ning kinnised või poolkinnised soengud hinnaga alates 40 eurost.', duration_minutes: 90, price: 55, sort_order: 1 },
-  { category: 'Soengud', name: 'Soengud', description: 'Pidulikud pruudisoengud alates 55 eurost.', duration_minutes: 55, price: 55, sort_order: 2 },
-  { category: 'Soengud', name: 'Pruudi proovisoeng', description: 'Professionaalne soenguteenus alates 45 eurost.', duration_minutes: 90, price: 45, sort_order: 3 }
+  {
+    category: 'Jumestus',
+    name: 'Fotomeik',
+    description: 'Ideaalne valik fotosessioonideks, ametlikeks portreedeks või lihtsalt loomulikult säravaks päevaseks sündmuseks. Sobib suurepäraselt ka videovõteteks ja esinemisteks.',
+    duration_minutes: 60,
+    price: 50,
+    sort_order: 1
+  },
+  {
+    category: 'Jumestus',
+    name: 'Pidulik jumestus',
+    description: 'Pidulik jumestus 55-60 eurot\nLuksuslik ja vastupidav jumestus Sinu oluliseks sündmuseks - olgu see pulm, sünnipäev või gala. Hinnas sisalduvad ripsmetutikud, mis muudavad pilgu sügavaks. Kasutusel on spetsiaalsed long-wear tooted, mis kestavad 16h+.',
+    duration_minutes: 60,
+    price: 55,
+    sort_order: 2
+  },
+  {
+    category: 'Jumestus',
+    name: 'Pruudimeik',
+    description: 'Professionaalne ja kestev pruudimeik vahemikus 80-85 eurot.\nPruudijumestus on midagi enamat kui lihtsalt ilus meik - see on tehniline meistriteos, mis peab nägema luksuslik välja lähedalt vaadates, jääma selge ja särav fotodel ning kestma hommikutundideni, trotsides nii emotsioone kui ka suvist soojust.\nMinu 10-aastane kogemus on Sinu garantii, et sel olulisel hommikul saad Sa toolis lõõgastuda, teades, et oled parimates kätes.',
+    duration_minutes: 90,
+    price: 80,
+    sort_order: 3
+  },
+  {
+    category: 'Jumestus',
+    name: 'Pruudi proovimeik',
+    description: 'Pruudi proovimeik 55 eurot.\nSinu muretu pulmapäeva garantii. Proovimeik ei ole lihtsalt "testimine", vaid põhjalik ettevalmistusperiood, et pulmapäeva hommikul saaksid Sina täielikult lõõgastuda ja nautida oma hetke, teades täpselt, milline on lõpptulemus.\nSoovitan proovimeigi planeerida samale päevale mõne muu sündmusega (nt tüdrukuteõhtu või fotosessioon), et saaksid oma kaunist välimust maksimaalselt ära kasutada!',
+    duration_minutes: 60,
+    price: 55,
+    sort_order: 4
+  },
+  {
+    category: 'Jumestus',
+    name: 'Fantaasiameik',
+    description: 'Loominguline fantaasiameik alates 60 eurost.\nLase oma kujutlusvõimel lennata! See teenus on mõeldud neile, kes soovivad eristuda ja kehastuda kellekski teiseks. Olgu selleks stiilipidu, Halloween, muusikavideo või loominguline fotosessioon - fantaasiameik ei tunne piire.\nHinnastamine sõltub töö keerukusest ja ajakulust. Julge küsida pakkumist oma ideele!',
+    duration_minutes: 90,
+    price: 60,
+    sort_order: 5
+  },
+  {
+    category: 'Jumestus',
+    name: 'Meeste jumestus',
+    description: 'Meeste jumestuse eesmärk on anda näole puhanud ja ühtlane ilme. See on hädavajalik teenus peigmeestele, esinejatele ja fotosessioonidel osalejatele, et vältida naha läikimist ja ebaühtlust kaamera ees.',
+    duration_minutes: 15,
+    price: 20,
+    sort_order: 6
+  },
+  {
+    category: 'Soengud',
+    name: 'Soengud',
+    description: 'Lahtised, kinnised ja poolkinnised soengud hinnaga alates 40 eurost.\nLokid on klassika, mis ei aegu kunagi. Kas soovid romantilisi rannalaineid, Hollywoodi glamuuri või kohevaid volüümikaid lokke - loon Sulle soengu, mis raamib nägu ja peab vastu kogu peo.',
+    duration_minutes: 60,
+    price: 40,
+    sort_order: 1
+  },
+  {
+    category: 'Soengud',
+    name: 'Pruudisoeng',
+    description: 'Pruudisoeng on Sinu pulmapäeva välimuse kroon. Olgu Sinu unistuseks romantilised ülespandud kiharad, luksuslikud Hollywoodi lained või modernne ja puhas krunn - loon soengu, mis on kooskõlas Sinu kleidi, loori ja isiksusega.\n*Hinnastamine sõltub töö keerukusest ja ajakulust!',
+    duration_minutes: 60,
+    price: 50,
+    sort_order: 2
+  },
+  {
+    category: 'Soengud',
+    name: 'Pruudi proovisoeng',
+    description: 'Professionaalne soenguteenus alates 45 eurost.\nHind sõltub soengu keerukusest, juuste pikkusest ja paksusest. Soovitan proovisoengu planeerida samale päevale proovimeigiga, et näha terviklikku lõpptulemust!',
+    duration_minutes: 60,
+    price: 45,
+    sort_order: 3
+  }
 ]
 
 const SEED_CATEGORIES = [
@@ -22,19 +85,20 @@ const SEED_CATEGORIES = [
   { name: 'Soengud', sort_order: 2 }
 ]
 const SEED_CATEGORY_NOTES = {
-  Jumestus: 'Teenuse lõplik hind võib varieeruda vastavalt töömahule. Lisad (sh kunstripsmed) ei kuulu hinna sisse.',
+  Jumestus: 'Teenuse lõplik hind võib varieeruda vastavalt töömahule.',
   Soengud: 'Teenuse lõplik hind võib varieeruda vastavalt töömahule, juuste paksusele ja pikkusele.'
 }
 
 const SEED_HOME_SERVICES = [
-  { icon: 'Crown', title: 'Pruudimeik', duration_minutes: 90, price: 75, sort_order: 1 },
+  { icon: 'Crown', title: 'Pruudimeik', duration_minutes: 90, price: 80, sort_order: 1 },
   { icon: 'Sparkles', title: 'Fantaasiameik', duration_minutes: 90, price: 60, sort_order: 2 },
-  { icon: 'Heart', title: 'Pruudi proovimeik', duration_minutes: 90, price: 55, sort_order: 3 },
-  { icon: 'Wand2', title: 'Pruudisoeng', duration_minutes: 90, price: 55, sort_order: 4 },
+  { icon: 'Heart', title: 'Pruudi proovimeik', duration_minutes: 60, price: 55, sort_order: 3 },
+  { icon: 'Wand2', title: 'Pruudisoeng', duration_minutes: 60, price: 55, sort_order: 4 },
   { icon: 'Star', title: 'Pidulik jumestus', duration_minutes: 60, price: 55, sort_order: 5 },
   { icon: 'Camera', title: 'Fotomeik', duration_minutes: 60, price: 50, sort_order: 6 },
-  { icon: 'Gift', title: 'Pruudi proovisoeng', duration_minutes: 90, price: 45, sort_order: 7 },
-  { icon: 'Zap', title: 'Soengud', duration_minutes: 60, price: 40, sort_order: 8 }
+  { icon: 'Gift', title: 'Pruudi proovisoeng', duration_minutes: 60, price: 45, sort_order: 7 },
+  { icon: 'Zap', title: 'Soengud', duration_minutes: 60, price: 40, sort_order: 8 },
+  { icon: 'Crown', title: 'Meeste jumestus', duration_minutes: 15, price: 20, sort_order: 9 }
 ]
 
 let db
@@ -93,6 +157,7 @@ export function getDb() {
   seedCategories(db)
   seedCategoryNotesOnce(db)
   seedHomeServices(db)
+  syncClientServiceSnapshotOnce(db)
   return db
 }
 
@@ -152,6 +217,39 @@ function seedHomeServices(dbInstance) {
     for (const item of items) insert.run(item)
   })
   tx(SEED_HOME_SERVICES)
+}
+
+function syncClientServiceSnapshotOnce(dbInstance) {
+  const snapshotKey = 'client_services_snapshot_2026_05_12'
+  const synced = dbInstance.prepare('SELECT value FROM app_meta WHERE key = ?').get(snapshotKey)
+  if (synced) return
+
+  const insertService = dbInstance.prepare(
+    'INSERT INTO services (category, name, description, duration_minutes, price, sort_order) VALUES (@category, @name, @description, @duration_minutes, @price, @sort_order)'
+  )
+  const insertHomeService = dbInstance.prepare(
+    'INSERT INTO home_services (icon, title, duration_minutes, price, sort_order) VALUES (@icon, @title, @duration_minutes, @price, @sort_order)'
+  )
+  const upsertCategory = dbInstance.prepare(
+    `INSERT INTO categories (name, sort_order, note)
+     VALUES (@name, @sort_order, @note)
+     ON CONFLICT(name) DO UPDATE SET sort_order = excluded.sort_order, note = excluded.note`
+  )
+
+  const tx = dbInstance.transaction(() => {
+    dbInstance.prepare('DELETE FROM services').run()
+    dbInstance.prepare('DELETE FROM home_services').run()
+    dbInstance.prepare("DELETE FROM categories WHERE name NOT IN ('Jumestus', 'Soengud')").run()
+
+    SEED_CATEGORIES.forEach((category) => {
+      upsertCategory.run({ ...category, note: SEED_CATEGORY_NOTES[category.name] || '' })
+    })
+    SEED_SERVICES.forEach((service) => insertService.run(service))
+    SEED_HOME_SERVICES.forEach((service) => insertHomeService.run(service))
+    dbInstance.prepare('INSERT INTO app_meta (key, value) VALUES (?, ?)').run(snapshotKey, '1')
+  })
+
+  tx()
 }
 
 export function listCategories() {
