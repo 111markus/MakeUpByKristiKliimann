@@ -12,6 +12,10 @@ const MotionP = motion.p
 
 const iconMap = { Camera, Crown, Gift, Heart, Sparkles, Star, Wand2, Zap }
 
+const hairServiceTitles = new Set(['soengud', 'pruudisoeng', 'pruudi proovisoeng'])
+
+const isHairService = (service) => hairServiceTitles.has(String(service.title || '').trim().toLowerCase())
+
 const fallbackServices = [
   {
     icon: <Crown size={28} />,
@@ -415,7 +419,9 @@ export default function Home() {
                     </h3>
                   </div>
                   <div className="flex flex-col items-center gap-2 mt-6">
-                    <p className="text-xs text-rose font-light">alates</p>
+                    {isHairService(service) && (
+                      <p className="text-xs text-rose font-light">alates</p>
+                    )}
                     <p className="text-4xl lg:text-5xl font-semibold text-rose">
                       {service.price}
                       {typeof service.price === 'number' ? ' €' : ''}
