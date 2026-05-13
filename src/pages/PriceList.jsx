@@ -158,6 +158,28 @@ export default function PriceList() {
         </div>
       </section>
 
+      <section className="pt-2 pb-8 lg:pb-10">
+        <div className="max-w-4xl mx-auto px-6 lg:px-12">
+          <FadeInView delay={0.1}>
+            <div className="bg-ivory px-8 py-8 text-left lg:px-12">
+              <h2 className="font-serif text-2xl md:text-3xl font-medium text-dark text-center mb-5">
+                Enne jumestusse tulekut
+              </h2>
+              <div className="mx-auto max-w-2xl space-y-4 text-sm md:text-base leading-relaxed text-warm-gray font-light">
+                <p>
+                  Soovitan enne teha näole kerge hoolduse - puhastus, kerge koorimine ja niisutav mask.
+                  Hästi hooldatud ja niisutatud nahale jääb meik ilusam, püsib paremini ning tulemus jääb ühtlasem ja värskem.
+                </p>
+                <p>
+                  Väldi vahetult enne jumestust tugevaid koorimisi või uusi tooteid, mis võivad nahka ärritada.
+                  Nii saame koos saavutada parima võimaliku tulemuse.
+                </p>
+              </div>
+            </div>
+          </FadeInView>
+        </div>
+      </section>
+
       <section className="pt-2 pb-12 lg:pb-16">
         <div className="max-w-4xl mx-auto px-6 lg:px-12 text-center">
           <FadeInView>
