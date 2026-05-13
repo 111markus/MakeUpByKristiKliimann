@@ -16,7 +16,9 @@ const distPath = path.resolve(__dirname, '..', 'dist')
 const defaultAllowedOrigins = [
   'http://localhost:5173',
   'http://localhost:4173',
-  'https://kristikliimannbeauty.onrender.com'
+  'https://kristikliimannbeauty.onrender.com',
+  'https://kristikliimannbeauty.ee',
+  'https://www.kristikliimannbeauty.ee'
 ]
 
 const allowedOrigins = (process.env.ALLOWED_ORIGINS

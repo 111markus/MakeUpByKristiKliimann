@@ -26,16 +26,13 @@ function App() {
   const [adminNavActions, setAdminNavActions] = useState(null)
   const location = useLocation()
   const isAdmin = location.pathname.startsWith('/admin')
-
-  useEffect(() => {
-    if (!isAdmin) setAdminNavActions(null)
-  }, [isAdmin])
+  const visibleAdminActions = isAdmin ? adminNavActions : null
 
   return (
     <div className="min-h-screen bg-cream">
       <LoadingOverlay />
       <ScrollToTop />
-      <Navbar adminActions={adminNavActions} />
+      <Navbar adminActions={visibleAdminActions} />
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
